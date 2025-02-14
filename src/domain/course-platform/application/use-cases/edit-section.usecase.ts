@@ -19,7 +19,7 @@ export class EditSectionUsecase {
     description,
     title,
   }: EditSectionUsecaseRequest): Promise<EditSectionResponse> {
-    const section = await this.sectionsRepository.findSectioById(id);
+    const section = await this.sectionsRepository.findById(id);
 
     if (!section) return left(new ResourceNotFoundError());
 

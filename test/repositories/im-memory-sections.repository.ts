@@ -12,7 +12,7 @@ export class InMemorySectionsRepository implements SectionsRepository {
     this.items[sectionIndex] = section;
   }
 
-  async findSectioById(id: string): Promise<Section | null> {
+  async findById(id: string): Promise<Section | null> {
     const section = this.items.find((item) => item.id.toString() === id);
     if (!section) return null;
     return section;

@@ -13,8 +13,8 @@
 
 [x] - Create a section
 [x] - Update a section
-[ ] - Delete a section
-[ ] - Find Sections by course Id
+[x] - Delete a section
+[x] - Find Sections by course Id
 
 ### Lecture
 

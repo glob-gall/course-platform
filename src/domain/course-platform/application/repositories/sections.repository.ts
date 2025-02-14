@@ -5,5 +5,5 @@ export abstract class SectionsRepository {
   abstract save(section: Section): Promise<void>;
   abstract delete(section: Section): Promise<void>;
   abstract findSectiosBySectionId(courseId: string): Promise<Section[]>;
-  abstract findSectioById(id: string): Promise<Section | null>;
+  abstract findById(id: string): Promise<Section | null>;
 }
