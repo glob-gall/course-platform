@@ -3,7 +3,7 @@
 ### Courses
 
 [x] - Create a course
-[x] - Update a course
+[x] - Edit a course
 [x] - Delete a course
 [x] - Find a course by id or and by slug
 [ ] - Change sections order
@@ -12,20 +12,20 @@
 ### Sections
 
 [x] - Create a section
-[x] - Update a section
+[x] - Edit a section
 [x] - Delete a section
 [x] - Find Sections by course Id
 
 ### Lecture
 
-[ ] - Create a Lecture
-[ ] - Update a Lecture
-[ ] - Delete a Lecture
+[x] - Create a Lecture
+[x] - Edit a Lecture
+[x] - Delete a Lecture
 
 ### Quizz
 
 [ ] - Create a quizz
-[ ] - Update a quizz
+[ ] - Edit a quizz
 [ ] - Delete a quizz
 
 ### Admin

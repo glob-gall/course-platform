@@ -29,6 +29,8 @@ describe('Fetch Sections by courseId Use Case', () => {
     });
 
     expect(response.isRight()).toBeTruthy();
+    if (response.isRight()) expect(response.value.sections).toHaveLength(2);
+
     expect(response.value).toEqual({
       sections: expect.arrayContaining([
         expect.objectContaining({
