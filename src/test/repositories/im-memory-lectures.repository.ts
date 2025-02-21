@@ -1,5 +1,5 @@
-import { LecturesRepository } from '@/domain/course-platform/application/repositories/lectures.repository';
-import { Lecture } from '@/domain/course-platform/entities/lecture.entity';
+import { LecturesRepository } from '@/domain/lecture-system/application/repositories/lectures.repository';
+import { Lecture } from '@/domain/lecture-system/entities/lecture.entity';
 
 export class InMemoryLecturesRepository implements LecturesRepository {
   public items: Lecture[] = [];

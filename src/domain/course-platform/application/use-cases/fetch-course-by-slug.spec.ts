@@ -1,5 +1,5 @@
-import { InMemoryCoursesRepository } from 'test/repositories/im-memory-courses.repository';
-import { makeCourse } from 'test/factories/make-course';
+import { InMemoryCoursesRepository } from '@/test/repositories/im-memory-courses.repository';
+import { makeCourse } from '@/test/factories/make-course';
 import { FetchCourseBySlugUsecase } from './fetch-course-by-slug.usecase';
 import { Slug } from '@/core/entities/value-objects/slug';
 

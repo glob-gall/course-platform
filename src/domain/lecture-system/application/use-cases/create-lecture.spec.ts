@@ -1,4 +1,4 @@
-import { InMemoryLecturesRepository } from 'test/repositories/im-memory-lectures.repository';
+import { InMemoryLecturesRepository } from '@/test/repositories/im-memory-lectures.repository';
 import { CreateLectureUsecase } from './create-lecture.usecase';
 
 let lecturesRepository: InMemoryLecturesRepository;

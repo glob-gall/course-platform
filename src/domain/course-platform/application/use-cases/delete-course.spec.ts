@@ -1,6 +1,6 @@
-import { InMemoryCoursesRepository } from 'test/repositories/im-memory-courses.repository';
+import { InMemoryCoursesRepository } from '@/test/repositories/im-memory-courses.repository';
 import { DeleteCourseUsecase } from './delete-course.usecase';
-import { makeCourse } from 'test/factories/make-course';
+import { makeCourse } from '@/test/factories/make-course';
 
 let coursesRepository: InMemoryCoursesRepository;
 let sut: DeleteCourseUsecase;

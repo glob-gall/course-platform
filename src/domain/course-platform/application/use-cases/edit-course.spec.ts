@@ -1,7 +1,7 @@
-import { InMemoryCoursesRepository } from 'test/repositories/im-memory-courses.repository';
+import { InMemoryCoursesRepository } from '@/test/repositories/im-memory-courses.repository';
 import { EditCourseUsecase } from './edit-course.usecase';
 import { Slug } from '@/core/entities/value-objects/slug';
-import { makeCourse } from 'test/factories/make-course';
+import { makeCourse } from '@/test/factories/make-course';
 
 let coursesRepository: InMemoryCoursesRepository;
 let sut: EditCourseUsecase;

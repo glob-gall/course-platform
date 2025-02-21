@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/types/either';
 import { Lecture } from '../../entities/lecture.entity';
 import { LecturesRepository } from '../repositories/lectures.repository';
-import { ResourceNotFoundError } from './errors/resource-not-found.error';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 
 interface EditLectureUsecaseRequest {
   id: string;

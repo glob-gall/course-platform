@@ -1,8 +1,8 @@
-import { InMemoryUsersRepository } from 'test/repositories/im-memory-users.repository';
+import { InMemoryUsersRepository } from '@/test/repositories/im-memory-users.repository';
 import { AuthenticateUserUsecase } from './authenticate-user.usecase';
-import { FakeHasher } from 'test/cryptography/fake-hasher';
-import { FakeEncrypter } from 'test/cryptography/fake-encrypter';
-import { makeUser } from 'test/factories/make-user';
+import { FakeHasher } from '@/test/cryptography/fake-hasher';
+import { FakeEncrypter } from '@/test/cryptography/fake-encrypter';
+import { makeUser } from '@/test/factories/make-user';
 import { WrongCredentialsError } from './errors/wrond-credentials.error';
 
 let usersRepository: InMemoryUsersRepository;

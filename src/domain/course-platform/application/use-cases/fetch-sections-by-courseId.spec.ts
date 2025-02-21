@@ -1,6 +1,6 @@
-import { InMemorySectionsRepository } from 'test/repositories/im-memory-sections.repository';
+import { InMemorySectionsRepository } from '@/test/repositories/im-memory-sections.repository';
 import { FetchSectionsByCourseIdUsecase } from './fetch-sections-by-courseId.usecase';
-import { makeSection } from 'test/factories/make-section';
+import { makeSection } from '@/test/factories/make-section';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 
 let sectionsRepository: InMemorySectionsRepository;

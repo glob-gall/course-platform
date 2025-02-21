@@ -1,6 +1,6 @@
-import { InMemoryLecturesRepository } from 'test/repositories/im-memory-lectures.repository';
+import { InMemoryLecturesRepository } from '@/test/repositories/im-memory-lectures.repository';
 import { EditLectureUsecase } from './edit-lecture.usecase';
-import { makeLecture } from 'test/factories/make-lecture';
+import { makeLecture } from '@/test/factories/make-lecture';
 
 let lecturesRepository: InMemoryLecturesRepository;
 let sut: EditLectureUsecase;

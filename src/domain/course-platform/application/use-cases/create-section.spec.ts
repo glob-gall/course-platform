@@ -1,4 +1,4 @@
-import { InMemorySectionsRepository } from 'test/repositories/im-memory-sections.repository';
+import { InMemorySectionsRepository } from '@/test/repositories/im-memory-sections.repository';
 import { CreateSectionUsecase } from './create-section.usecase';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 

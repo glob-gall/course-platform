@@ -2,7 +2,7 @@ import { Either, left, right } from '@/core/types/either';
 import { Course } from '../../entities/course.entity';
 import { CoursesRepository } from '../repositories/courses.repository';
 import { Slug } from '@/core/entities/value-objects/slug';
-import { ResourceNotFoundError } from './errors/resource-not-found.error';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 
 interface EditCourseUsecaseRequest {
   id: string;

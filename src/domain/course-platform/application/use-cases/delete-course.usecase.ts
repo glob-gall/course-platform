@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/types/either';
 import { CoursesRepository } from '../repositories/courses.repository';
-import { ResourceNotFoundError } from './errors/resource-not-found.error';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 
 interface DeleteCourseUsecaseRequest {
   id: string;

@@ -4,7 +4,7 @@ import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import {
   Lecture,
   LectureProps,
-} from '@/domain/course-platform/entities/lecture.entity';
+} from '@/domain/lecture-system/entities/lecture.entity';
 
 export function makeLecture(
   override: Partial<LectureProps> = {},
@@ -15,7 +15,6 @@ export function makeLecture(
   const lecture = Lecture.create(
     {
       description: faker.lorem.text(),
-      sectionId: new UniqueEntityID(),
       title,
       ...override,
     },

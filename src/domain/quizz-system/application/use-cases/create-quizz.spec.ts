@@ -1,5 +1,5 @@
 import { CreateQuizzUsecase } from './create-quizz.usecase';
-import { InMemoryQuizzesRepository } from 'test/repositories/im-memory-quizzes.repository';
+import { InMemoryQuizzesRepository } from '@/test/repositories/im-memory-quizzes.repository';
 
 let sectionsRepository: InMemoryQuizzesRepository;
 let sut: CreateQuizzUsecase;

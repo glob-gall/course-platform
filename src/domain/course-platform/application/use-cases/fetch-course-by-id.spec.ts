@@ -1,5 +1,5 @@
-import { InMemoryCoursesRepository } from 'test/repositories/im-memory-courses.repository';
-import { makeCourse } from 'test/factories/make-course';
+import { InMemoryCoursesRepository } from '@/test/repositories/im-memory-courses.repository';
+import { makeCourse } from '@/test/factories/make-course';
 import { FetchCourseByIdUsecase } from './fetch-course-by-id.usecase';
 
 let coursesRepository: InMemoryCoursesRepository;

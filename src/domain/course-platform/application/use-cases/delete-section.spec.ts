@@ -1,6 +1,6 @@
-import { InMemorySectionsRepository } from 'test/repositories/im-memory-sections.repository';
+import { InMemorySectionsRepository } from '@/test/repositories/im-memory-sections.repository';
 import { DeleteSectionUsecase } from './delete-section.usecase';
-import { makeSection } from 'test/factories/make-section';
+import { makeSection } from '@/test/factories/make-section';
 
 let sectionsRepository: InMemorySectionsRepository;
 let sut: DeleteSectionUsecase;

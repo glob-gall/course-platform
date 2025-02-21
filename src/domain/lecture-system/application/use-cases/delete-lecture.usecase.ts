@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/types/either';
 import { LecturesRepository } from '../repositories/lectures.repository';
-import { ResourceNotFoundError } from './errors/resource-not-found.error';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 
 interface DeleteLectureUsecaseRequest {
   id: string;

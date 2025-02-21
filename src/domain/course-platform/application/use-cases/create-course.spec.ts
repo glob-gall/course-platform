@@ -1,4 +1,4 @@
-import { InMemoryCoursesRepository } from 'test/repositories/im-memory-courses.repository';
+import { InMemoryCoursesRepository } from '@/test/repositories/im-memory-courses.repository';
 import { CreateCourseUsecase } from './create-course.usecase';
 import { Slug } from '@/core/entities/value-objects/slug';
 
