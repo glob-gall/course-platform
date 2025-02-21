@@ -38,3 +38,23 @@
 
 [ ] - Access free courses
 [ ] - Buy products(courses accesses)
+
+#### create JWT RS256 private key
+
+openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+
+#### convert JWT RS256 private key to base64
+
+base64 -i private_key.pem >> private_key-base64.txt
+
+#### create JWT RS256 public key
+
+openssl rsa -pubout -in private_key.pem -out public_key.pem
+
+#### convert JWT RS256 public key to base64
+
+base64 -i public_key.pem >> public_key-base64.txt
+
+### Transform anytext to one line
+
+awk 'NF {sub(/\r/, ""); printf "%s\\n",$0;}' FILE_NAME.EXAMPLE
