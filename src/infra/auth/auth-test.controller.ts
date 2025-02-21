@@ -1,13 +1,10 @@
 import { Role } from '@/domain/course-platform/entities/enums/roles.enum';
-import { Roles } from './roles.decorator';
+import { Roles } from '../decorators/roles.decorator';
 import { Body, Controller, Post } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { CurrentUser } from './current-user.decorator';
 import { TokenPayload } from './guards/role.guard';
-import { Public } from './public.decorator';
-// import { CurrentUser } from './current-user.decorator';
-// import { TokenPayload } from './jwt.strategy';
-
+import { Public } from '../decorators/public.decorator';
+import { AuthServiceInterface } from './auth.interface';
 interface AuthTestProps {
   email: string;
   password: string;
@@ -16,7 +13,7 @@ interface AuthTestProps {
 
 @Controller('/auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthServiceInterface) {}
 
   @Post('/sign-in')
   @Public()

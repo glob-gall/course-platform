@@ -7,9 +7,7 @@ import { AuthController } from './auth-test.controller';
 import { AuthService } from './auth.service';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role.guard';
-
-// import { RolesGuard } from './guards/role.guard';
-// import { APP_GUARD } from '@nestjs/core';
+import { AuthServiceInterface } from './auth.interface';
 
 @Module({
   imports: [
@@ -33,7 +31,10 @@ import { RolesGuard } from './guards/role.guard';
   providers: [
     EnvService,
     AuthController,
-    AuthService,
+    {
+      provide: AuthServiceInterface,
+      useClass: AuthService,
+    },
     {
       provide: APP_GUARD,
       useClass: RolesGuard,

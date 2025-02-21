@@ -1,37 +1,46 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
-import { SectionItemList } from './section-item-list';
 
-export interface SectionProps {
-  courseId: UniqueEntityID;
-  title: string;
-  description: string;
+export interface SectionItemProps {
+  sectionId: UniqueEntityID;
+  title?: string | null;
+  description?: string | null;
 
-  sectionItems: SectionItemList;
+  lectureId?: UniqueEntityID;
+  quizzId?: UniqueEntityID;
 
   createdAt: Date;
   updatedAt?: Date | null;
 }
 
-export class Section extends Entity<SectionProps> {
+export class SectionItem extends Entity<SectionItemProps> {
   get title() {
     return this.props.title;
   }
-  set title(title: string) {
+
+  set title(title: string | undefined | null) {
     this.props.title = title;
 
     this.touch();
   }
 
-  get courseId() {
-    return this.props.courseId;
+  get sectionId() {
+    return this.props.sectionId;
+  }
+
+  get lectureId() {
+    return this.props.lectureId;
+  }
+
+  get quizzId() {
+    return this.props.quizzId;
   }
 
   get description() {
     return this.props.description;
   }
-  set description(description: string) {
+  set description(description: string | undefined | null) {
     this.props.description = description;
 
     this.touch();
@@ -42,13 +51,12 @@ export class Section extends Entity<SectionProps> {
   }
 
   static create(
-    props: Optional<SectionProps, 'createdAt' | 'sectionItems'>,
+    props: Optional<SectionItemProps, 'createdAt'>,
     id?: UniqueEntityID,
-  ): Section {
-    const section = new Section(
+  ): SectionItem {
+    const section = new SectionItem(
       {
         ...props,
-        sectionItems: props.sectionItems ?? new SectionItemList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,

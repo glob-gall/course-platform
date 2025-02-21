@@ -1,18 +1,23 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
+import { QuestionAnswerList } from './question-answer-list';
 
-export interface LectureProps {
+export interface QuestionProps {
+  quizzId: UniqueEntityID;
   title: string;
   description: string;
   videoURL?: string | null;
   audioURL?: string | null;
 
+  answers: QuestionAnswerList;
+  correctAnswersIds: UniqueEntityID[];
+
   createdAt: Date;
   updatedAt?: Date | null;
 }
 
-export class Lecture extends Entity<LectureProps> {
+export class Question extends Entity<QuestionProps> {
   get title() {
     return this.props.title;
   }
@@ -20,6 +25,10 @@ export class Lecture extends Entity<LectureProps> {
     this.props.title = title;
 
     this.touch();
+  }
+
+  get quizzId() {
+    return this.props.quizzId;
   }
 
   get videoURL() {
@@ -54,13 +63,17 @@ export class Lecture extends Entity<LectureProps> {
   }
 
   static create(
-    props: Optional<LectureProps, 'createdAt'>,
+    props: Optional<QuestionProps, 'createdAt' | 'answers'>,
     id?: UniqueEntityID,
-  ): Lecture {
-    const lecture = new Lecture(
-      { ...props, createdAt: props.createdAt ?? new Date() },
+  ): Question {
+    const question = new Question(
+      {
+        ...props,
+        answers: props.answers ?? new QuestionAnswerList(),
+        createdAt: props.createdAt ?? new Date(),
+      },
       id,
     );
-    return lecture;
+    return question;
   }
 }

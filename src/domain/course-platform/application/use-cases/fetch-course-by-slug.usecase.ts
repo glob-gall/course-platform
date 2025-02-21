@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/core/types/either';
 import { CoursesRepository } from '../repositories/courses.repository';
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import { Course } from '../../entities/course.entity';
+import { ResourceNotFoundError } from './errors/resource-not-found.error';
 
 interface FetchCourseBySlugUsecaseRequest {
   slug: string;

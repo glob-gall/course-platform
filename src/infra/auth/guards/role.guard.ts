@@ -5,9 +5,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ROLES_KEY } from '../roles.decorator';
+import { ROLES_KEY } from '../../decorators/roles.decorator';
 import { Role } from '@/domain/course-platform/entities/enums/roles.enum';
-import { IS_PUBLIC_KEY } from '../public.decorator';
+import { IS_PUBLIC_KEY } from '../../decorators/public.decorator';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { z } from 'zod';
@@ -46,9 +46,6 @@ export class RolesGuard implements CanActivate {
     if (!token) throw new UnauthorizedException();
     try {
       const payload = await this.jwtService.verifyAsync(token);
-      console.log({ payload });
-      // const user = await this.validateToken(payload);
-      // console.log({ user });
 
       request['user'] = payload;
       const userHasPermision = requiredRoles.includes(payload.user.role);

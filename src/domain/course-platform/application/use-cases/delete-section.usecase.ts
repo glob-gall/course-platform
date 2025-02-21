@@ -1,6 +1,6 @@
 import { Either, left, right } from '@/core/types/either';
 import { SectionsRepository } from '../repositories/sections.repository';
-import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { ResourceNotFoundError } from './errors/resource-not-found.error';
 
 interface DeleteSectionUsecaseRequest {
   id: string;
