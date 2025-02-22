@@ -4,6 +4,7 @@ import { Optional } from '@/core/types/optional';
 
 export interface LectureProps {
   title: string;
+  sectionId: UniqueEntityID;
   description: string;
   videoURL?: string | null;
   audioURL?: string | null;

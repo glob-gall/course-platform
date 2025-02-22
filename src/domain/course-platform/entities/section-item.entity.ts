@@ -7,9 +7,6 @@ export interface SectionItemProps {
   title?: string | null;
   description?: string | null;
 
-  lectureId?: UniqueEntityID;
-  quizzId?: UniqueEntityID;
-
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -27,14 +24,6 @@ export class SectionItem extends Entity<SectionItemProps> {
 
   get sectionId() {
     return this.props.sectionId;
-  }
-
-  get lectureId() {
-    return this.props.lectureId;
-  }
-
-  get quizzId() {
-    return this.props.quizzId;
   }
 
   get description() {

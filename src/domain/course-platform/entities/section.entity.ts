@@ -1,14 +1,11 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
-import { SectionItemList } from './section-item-list';
 
 export interface SectionProps {
   courseId: UniqueEntityID;
   title: string;
   description: string;
-
-  sectionItems: SectionItemList;
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -42,13 +39,12 @@ export class Section extends Entity<SectionProps> {
   }
 
   static create(
-    props: Optional<SectionProps, 'createdAt' | 'sectionItems'>,
+    props: Optional<SectionProps, 'createdAt'>,
     id?: UniqueEntityID,
   ): Section {
     const section = new Section(
       {
         ...props,
-        sectionItems: props.sectionItems ?? new SectionItemList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,
