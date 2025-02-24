@@ -1,7 +1,7 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
-import { Answer } from './answer.entity';
+import { AnswersList } from './answers-list';
 
 export interface QuestionProps {
   quizzId: UniqueEntityID;
@@ -10,8 +10,8 @@ export interface QuestionProps {
   videoURL?: string | null;
   audioURL?: string | null;
 
-  answers: Answer[];
-  correctAnswersIds: UniqueEntityID[];
+  answers: AnswersList;
+  correctAnswers: AnswersList;
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -29,6 +29,14 @@ export class Question extends Entity<QuestionProps> {
 
   get quizzId() {
     return this.props.quizzId;
+  }
+
+  get answers() {
+    return this.props.answers;
+  }
+
+  get correctAnswers() {
+    return this.props.correctAnswers;
   }
 
   get videoURL() {
@@ -63,12 +71,14 @@ export class Question extends Entity<QuestionProps> {
   }
 
   static create(
-    props: Optional<QuestionProps, 'createdAt'>,
+    props: Optional<QuestionProps, 'createdAt' | 'answers' | 'correctAnswers'>,
     id?: UniqueEntityID,
   ): Question {
     const question = new Question(
       {
         ...props,
+        answers: props.answers ?? new AnswersList(),
+        correctAnswers: props.correctAnswers ?? new AnswersList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,

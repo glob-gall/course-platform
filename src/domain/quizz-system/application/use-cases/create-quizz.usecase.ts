@@ -19,6 +19,7 @@ export class CreateQuizzUsecase {
     const quizz = Quizz.create({
       title,
       description,
+      questions: [],
     });
     await this.quizzesRepository.create(quizz);
 

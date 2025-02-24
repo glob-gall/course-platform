@@ -12,6 +12,7 @@ export function makeQuizz(
   const quizz = Quizz.create(
     {
       description: faker.lorem.text(),
+      questions: [],
       title,
       ...override,
     },
