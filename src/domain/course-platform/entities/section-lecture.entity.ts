@@ -4,12 +4,21 @@ import { Optional } from '@/core/types/optional';
 import { SectionItemProps } from '@/domain/course-platform/entities/section-item.entity';
 
 export interface SectionLectureProps extends SectionItemProps {
-  lectureId?: UniqueEntityID;
+  lectureId: UniqueEntityID;
 }
 
 export class SectionLecture extends Entity<SectionLectureProps> {
   get lectureId() {
     return this.props.lectureId;
+  }
+  get title() {
+    return this.props.title;
+  }
+  get sectionId() {
+    return this.props.sectionId;
+  }
+  get description() {
+    return this.props.description;
   }
 
   static create(

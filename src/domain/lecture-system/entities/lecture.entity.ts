@@ -4,10 +4,10 @@ import { Optional } from '@/core/types/optional';
 
 export interface LectureProps {
   title: string;
-  sectionId: UniqueEntityID;
   description: string;
   videoURL?: string | null;
   audioURL?: string | null;
+  externalResource?: string | null;
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -26,6 +26,11 @@ export class Lecture extends Entity<LectureProps> {
   get videoURL() {
     return this.props.videoURL;
   }
+
+  get externalResource() {
+    return this.props.externalResource;
+  }
+
   set videoURL(videoURL: string | null | undefined) {
     this.props.videoURL = videoURL;
 

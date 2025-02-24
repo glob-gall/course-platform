@@ -1,13 +1,13 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
-import { QuizzQuestionList } from './quizz-question-list';
+import { Question } from './question.entity';
 
 export interface QuizzProps {
   title: string;
   description: string;
 
-  questions: QuizzQuestionList;
+  questions: Question[];
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -37,13 +37,12 @@ export class Quizz extends Entity<QuizzProps> {
   }
 
   static create(
-    props: Optional<QuizzProps, 'createdAt' | 'questions'>,
+    props: Optional<QuizzProps, 'createdAt'>,
     id?: UniqueEntityID,
   ): Quizz {
     const quizz = new Quizz(
       {
         ...props,
-        questions: props.questions ?? new QuizzQuestionList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,
