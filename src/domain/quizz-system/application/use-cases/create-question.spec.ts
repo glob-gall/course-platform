@@ -28,16 +28,18 @@ describe('Create Section Use Case', () => {
     const quizz = makeQuizz();
     const answer1: CreateAnswerProps = {
       description: 'answer-01',
+      isCorrect: false,
     };
     const answer2: CreateAnswerProps = {
       description: 'answer-02',
+      isCorrect: true,
     };
 
     const response = await sut.exec({
       description: 'description-01',
       title: 'title 01',
-      answersData: [answer1],
-      correctAnswersData: [answer2],
+      answersData: [answer1, answer2],
+
       quizzId: quizz.id.toString(),
     });
 
@@ -47,12 +49,8 @@ describe('Create Section Use Case', () => {
     expect(questionsRepository.items[0].description).toEqual('description-01');
     expect(questionsRepository.items[0].answers.getItems()).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ description: 'answer-01' }),
-      ]),
-    );
-    expect(questionsRepository.items[0].correctAnswers.getItems()).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ description: 'answer-02' }),
+        expect.objectContaining({ description: 'answer-01', isCorrect: false }),
+        expect.objectContaining({ description: 'answer-02', isCorrect: true }),
       ]),
     );
   });

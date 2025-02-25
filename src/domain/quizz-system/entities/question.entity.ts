@@ -11,7 +11,6 @@ export interface QuestionProps {
   audioURL?: string | null;
 
   answers: AnswersList;
-  correctAnswers: AnswersList;
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -33,10 +32,6 @@ export class Question extends Entity<QuestionProps> {
 
   get answers() {
     return this.props.answers;
-  }
-
-  get correctAnswers() {
-    return this.props.correctAnswers;
   }
 
   get videoURL() {
@@ -71,14 +66,13 @@ export class Question extends Entity<QuestionProps> {
   }
 
   static create(
-    props: Optional<QuestionProps, 'createdAt' | 'answers' | 'correctAnswers'>,
+    props: Optional<QuestionProps, 'createdAt' | 'answers'>,
     id?: UniqueEntityID,
   ): Question {
     const question = new Question(
       {
         ...props,
         answers: props.answers ?? new AnswersList(),
-        correctAnswers: props.correctAnswers ?? new AnswersList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id,

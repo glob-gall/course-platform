@@ -4,6 +4,7 @@ import { Optional } from '@/core/types/optional';
 
 export interface AnswerProps {
   questionId: UniqueEntityID;
+  isCorrect: boolean;
 
   description: string;
   videoURL?: string | null;
@@ -16,6 +17,10 @@ export interface AnswerProps {
 export class Answer extends Entity<AnswerProps> {
   get questionId() {
     return this.props.questionId;
+  }
+
+  get isCorrect() {
+    return this.props.isCorrect;
   }
 
   get videoURL() {

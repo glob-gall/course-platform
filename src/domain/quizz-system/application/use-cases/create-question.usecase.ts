@@ -17,7 +17,6 @@ interface CreateQuestionUsecaseRequest {
   videoURL?: string;
   audioURL?: string;
   answersData: CreateAnswerProps[];
-  correctAnswersData: CreateAnswerProps[];
 }
 
 type CreateQuestionResponse = Either<
@@ -39,19 +38,16 @@ export class CreateQuestionUsecase {
     audioURL,
     videoURL,
     answersData,
-    correctAnswersData,
   }: CreateQuestionUsecaseRequest): Promise<CreateQuestionResponse> {
     const quizz = this.quizzesRepository.findById(quizzId);
     if (!quizz) return left(new ResourceNotFoundError());
 
     const answersList = new AnswersList();
-    const correctAnswersList = new AnswersList();
 
     const question = Question.create({
       title,
       description,
       answers: answersList,
-      correctAnswers: correctAnswersList,
       quizzId: new UniqueEntityID(quizzId),
       videoURL,
       audioURL,
@@ -60,15 +56,10 @@ export class CreateQuestionUsecase {
     const answers = answersData.map((item) =>
       Answer.create({ ...item, questionId: question.id }),
     );
-    const correctAnswers = correctAnswersData.map((item) =>
-      Answer.create({ ...item, questionId: question.id }),
-    );
 
     question.answers.update(answers);
-    question.correctAnswers.update(correctAnswers);
 
     await this.answersRepository.createMany(question.answers.getItems());
-    await this.answersRepository.createMany(question.correctAnswers.getItems());
 
     await this.questionsRepository.create(question);
 
