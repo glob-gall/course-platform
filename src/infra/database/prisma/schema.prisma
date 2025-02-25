@@ -20,11 +20,41 @@ enum UserRole {
 }
 
 model User {
-  id       String   @id @default(uuid())
+  id       String       @id @default(uuid())
   name     String
-  email    String   @unique
+  email    String       @unique
   password String
-  role     UserRole @default(STUDENT)
+  role     UserRole     @default(STUDENT)
+  courses  UserCourse[]
+}
+
+model UserCourse {
+  id String @id @default(uuid())
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
+
+  progress SectionProgress[]
+}
+
+model SectionProgress {
+  id String @id @default(uuid())
+
+  section   Section @relation(fields: [sectionId], references: [id])
+  sectionId String
+
+  progress     SectionItemProgress[]
+  UserCourse   UserCourse?           @relation(fields: [userCourseId], references: [id])
+  userCourseId String?
+}
+
+model SectionItemProgress {
+  id                String           @id @default(uuid())
+  sectionItem       SectionItem      @relation(fields: [sectionItemId], references: [id])
+  sectionItemId     String
+  concluded         Boolean
+  SectionProgress   SectionProgress? @relation(fields: [sectionProgressId], references: [id])
+  sectionProgressId String?
 }
 
 model Course {
@@ -36,35 +66,45 @@ model Course {
 }
 
 model Section {
-  id           String        @id @default(uuid())
-  title        String
-  description  String
-  Course       Course?       @relation(fields: [courseId], references: [id])
-  courseId     String?
-  sectionItems SectionItem[]
+  id              String            @id @default(uuid())
+  title           String
+  description     String
+  Course          Course?           @relation(fields: [courseId], references: [id])
+  courseId        String?
+  sectionItems    SectionItem[]
+  SectionProgress SectionProgress[]
 }
 
 model SectionItem {
-  id          String   @id @default(uuid())
-  title       String?
-  description String?
-  Section     Section? @relation(fields: [sectionId], references: [id])
-  sectionId   String?
+  id                  String                @id @default(uuid())
+  title               String?
+  description         String?
+  Section             Section?              @relation(fields: [sectionId], references: [id])
+  sectionId           String?
+  SectionItemProgress SectionItemProgress[]
+
+  lecture   Lecture? @relation(fields: [lectureId], references: [id])
+  quizz     Quizz?   @relation(fields: [quizzId], references: [id])
+  lectureId String?
+  quizzId   String?
 }
 
 model Lecture {
-  id               String  @id @default(uuid())
+  id               String        @id @default(uuid())
   title            String
   description      String?
   videoURL         String?
   audioURL         String?
   externalResource String?
+  SectionItem      SectionItem[]
 }
 
 model Quizz {
-  id          String  @id @default(uuid())
+  id          String        @id @default(uuid())
   title       String
   description String?
+  SectionItem SectionItem[]
+  questions   Question[]
 }
 
 model Question {
@@ -78,6 +118,8 @@ model Question {
   externalResource String?
 
   answers Answer[]
+  Quizz   Quizz?   @relation(fields: [quizzId], references: [id])
+  quizzId String?
 }
 
 model Answer {
