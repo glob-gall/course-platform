@@ -18,7 +18,7 @@ export class User extends Entity<UserProps> {
   }
 
   get role() {
-    return this.props.email;
+    return this.props.role;
   }
 
   get password() {
@@ -27,6 +27,14 @@ export class User extends Entity<UserProps> {
 
   get name() {
     return this.props.name;
+  }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
   }
   set name(name: string) {
     this.props.name = name;

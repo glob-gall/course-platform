@@ -20,6 +20,12 @@ export class SectionQuizz extends Entity<SectionQuizzProps> {
   get description() {
     return this.props.description;
   }
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
 
   static create(
     props: Optional<SectionQuizzProps, 'createdAt'>,

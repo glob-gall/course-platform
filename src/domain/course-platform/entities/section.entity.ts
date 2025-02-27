@@ -28,6 +28,15 @@ export class Section extends Entity<SectionProps> {
   get description() {
     return this.props.description;
   }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
   set description(description: string) {
     this.props.description = description;
 
@@ -39,7 +48,7 @@ export class Section extends Entity<SectionProps> {
   }
 
   static create(
-    props: Optional<SectionProps, 'createdAt'>,
+    props: Optional<SectionProps, 'updatedAt'>,
     id?: UniqueEntityID,
   ): Section {
     const section = new Section(

@@ -25,6 +25,12 @@ export class SectionItem extends Entity<SectionItemProps> {
   get sectionId() {
     return this.props.sectionId;
   }
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
 
   get description() {
     return this.props.description;

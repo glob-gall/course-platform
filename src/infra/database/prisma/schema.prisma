@@ -20,19 +20,23 @@ enum UserRole {
 }
 
 model User {
-  id       String       @id @default(uuid())
+  id       String @id @default(uuid())
   name     String
-  email    String       @unique
+  email    String @unique
   password String
-  role     UserRole     @default(STUDENT)
-  courses  UserCourse[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  role    UserRole     @default(STUDENT)
+  courses UserCourse[]
 }
 
 model UserCourse {
   id String @id @default(uuid())
 
-  User   User?   @relation(fields: [userId], references: [id])
-  userId String?
+  User   User   @relation(fields: [userId], references: [id])
+  userId String
 
   progress SectionProgress[]
 }
@@ -44,8 +48,8 @@ model SectionProgress {
   sectionId String
 
   progress     SectionItemProgress[]
-  UserCourse   UserCourse?           @relation(fields: [userCourseId], references: [id])
-  userCourseId String?
+  UserCourse   UserCourse            @relation(fields: [userCourseId], references: [id])
+  userCourseId String
 }
 
 model SectionItemProgress {
@@ -54,23 +58,31 @@ model SectionItemProgress {
   sectionItemId     String
   concluded         Boolean
   SectionProgress   SectionProgress? @relation(fields: [sectionProgressId], references: [id])
-  sectionProgressId String?
+  sectionProgressId String
 }
 
 model Course {
   id          String @id @default(uuid())
   title       String
+  slug        String @unique
   description String
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   sections Section[]
 }
 
 model Section {
-  id              String            @id @default(uuid())
-  title           String
-  description     String
-  Course          Course?           @relation(fields: [courseId], references: [id])
-  courseId        String?
+  id          String @id @default(uuid())
+  title       String
+  description String
+  Course      Course @relation(fields: [courseId], references: [id])
+  courseId    String
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
   sectionItems    SectionItem[]
   SectionProgress SectionProgress[]
 }
@@ -79,9 +91,12 @@ model SectionItem {
   id                  String                @id @default(uuid())
   title               String?
   description         String?
-  Section             Section?              @relation(fields: [sectionId], references: [id])
-  sectionId           String?
+  Section             Section               @relation(fields: [sectionId], references: [id])
+  sectionId           String
   SectionItemProgress SectionItemProgress[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
 
   lecture   Lecture? @relation(fields: [lectureId], references: [id])
   quizz     Quizz?   @relation(fields: [quizzId], references: [id])
@@ -90,19 +105,27 @@ model SectionItem {
 }
 
 model Lecture {
-  id               String        @id @default(uuid())
+  id               String  @id @default(uuid())
   title            String
   description      String?
   videoURL         String?
   audioURL         String?
   externalResource String?
-  SectionItem      SectionItem[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  SectionItem SectionItem[]
 }
 
 model Quizz {
-  id          String        @id @default(uuid())
+  id          String  @id @default(uuid())
   title       String
   description String?
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
   SectionItem SectionItem[]
   questions   Question[]
 }
@@ -117,9 +140,12 @@ model Question {
   audioURL         String?
   externalResource String?
 
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
   answers Answer[]
-  Quizz   Quizz?   @relation(fields: [quizzId], references: [id])
-  quizzId String?
+  Quizz   Quizz    @relation(fields: [quizzId], references: [id])
+  quizzId String
 }
 
 model Answer {
@@ -130,7 +156,11 @@ model Answer {
   imageURL         String?
   audioURL         String?
   externalResource String?
-  Question         Question? @relation(fields: [questionId], references: [id])
-  questionId       String?
   isCorrect        Boolean
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  Question   Question? @relation(fields: [questionId], references: [id])
+  questionId String
 }

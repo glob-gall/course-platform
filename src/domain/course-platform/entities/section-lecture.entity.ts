@@ -21,6 +21,13 @@ export class SectionLecture extends Entity<SectionLectureProps> {
     return this.props.description;
   }
 
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
   static create(
     props: Optional<SectionLectureProps, 'createdAt'>,
     id?: UniqueEntityID,
