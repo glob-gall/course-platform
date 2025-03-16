@@ -19,7 +19,7 @@ export class FetchSectionsByCourseIdUsecase {
     courseId,
   }: FetchSectionsByCourseIdUsecaseRequest): Promise<FetchSectionsByCourseIdResponse> {
     const sections =
-      await this.sectionsRepository.findSectiosBySectionId(courseId);
+      await this.sectionsRepository.findSectiosByCourseId(courseId);
 
     return right({ sections });
   }

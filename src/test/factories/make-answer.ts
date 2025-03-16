@@ -12,6 +12,7 @@ export function makeAnswer(
 ) {
   const answer = Answer.create(
     {
+      isCorrect: false,
       questionId: new UniqueEntityID(),
       description: faker.lorem.text(),
       ...override,

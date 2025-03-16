@@ -2,6 +2,8 @@ import { CoursesRepository } from '@/domain/course-platform/application/reposito
 import { Course } from '@/domain/course-platform/entities/course.entity';
 import { PrismaService } from '../../prisma.service';
 import { PrismaCourseMapper } from '../../mappers/prisma-course.mapper';
+import { PaginationParams } from '@/core/repositories/pagination-params';
+import { CourseFilters } from '@/domain/course-platform/application/repositories/filters/course.filter';
 
 export class PrismaCourseRepository implements CoursesRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -44,5 +46,19 @@ export class PrismaCourseRepository implements CoursesRepository {
     });
     if (!course) return null;
     return PrismaCourseMapper.toDomain(course);
+  }
+
+  async findMany(
+    { order, title }: CourseFilters,
+    { page }: PaginationParams,
+  ): Promise<Course[]> {
+    const courses = await this.prisma.course.findMany({
+      where: { title: { contains: title } },
+      orderBy: { createdAt: order },
+      take: 20,
+      skip: (page - 1) * 20,
+    });
+
+    return courses.map(PrismaCourseMapper.toDomain);
   }
 }

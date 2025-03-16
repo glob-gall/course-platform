@@ -30,6 +30,12 @@ export class Question extends Entity<QuestionProps> {
     return this.props.quizzId;
   }
 
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
   get answers() {
     return this.props.answers;
   }

@@ -27,6 +27,14 @@ export class Lecture extends Entity<LectureProps> {
     return this.props.videoURL;
   }
 
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
   get externalResource() {
     return this.props.externalResource;
   }

@@ -48,7 +48,7 @@ export class Section extends Entity<SectionProps> {
   }
 
   static create(
-    props: Optional<SectionProps, 'updatedAt'>,
+    props: Optional<SectionProps, 'createdAt'>,
     id?: UniqueEntityID,
   ): Section {
     const section = new Section(

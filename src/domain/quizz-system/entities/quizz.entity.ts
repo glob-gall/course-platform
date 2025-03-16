@@ -26,6 +26,15 @@ export class Quizz extends Entity<QuizzProps> {
   get description() {
     return this.props.description;
   }
+
+  get createdAt() {
+    return this.props.createdAt;
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
+
   set description(description: string) {
     this.props.description = description;
 

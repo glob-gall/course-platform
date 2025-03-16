@@ -23,7 +23,7 @@ export class InMemorySectionsRepository implements SectionsRepository {
     this.items.splice(sectionIndex, 1);
   }
 
-  async findSectiosBySectionId(courseId: string): Promise<Section[]> {
+  async findSectiosByCourseId(courseId: string): Promise<Section[]> {
     const sections = this.items.filter(
       (item) => item.courseId.toString() === courseId,
     );

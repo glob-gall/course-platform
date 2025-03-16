@@ -1,4 +1,7 @@
+import { Order } from '@/core/repositories/filters';
+import { PaginationParams } from '@/core/repositories/pagination-params';
 import { CoursesRepository } from '@/domain/course-platform/application/repositories/courses.repository';
+import { CourseFilters } from '@/domain/course-platform/application/repositories/filters/course.filter';
 import { Course } from '@/domain/course-platform/entities/course.entity';
 
 export class InMemoryCoursesRepository implements CoursesRepository {
@@ -26,5 +29,18 @@ export class InMemoryCoursesRepository implements CoursesRepository {
 
     if (!course) return null;
     return course;
+  }
+
+  async findMany(
+    { order, title }: CourseFilters,
+    { page }: PaginationParams,
+  ): Promise<Course[]> {
+    const courses = this.items.filter((item) => item.title.includes(title));
+    if (order === Order.ASC)
+      courses.sort((a, b) => +a.createdAt - +b.createdAt);
+    else if (order === Order.DESC)
+      courses.sort((a, b) => +b.createdAt - +a.createdAt);
+
+    return courses.splice((page - 1) * 20, 20);
   }
 }

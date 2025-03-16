@@ -18,7 +18,6 @@ export function makeQuestion(
       title,
       description: faker.lorem.text(),
       answers: new AnswersList(),
-      correctAnswersIds: new AnswersList(),
       quizzId: new UniqueEntityID(),
       ...override,
     },

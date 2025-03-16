@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    container_name: nest-clean-pg
+    container_name: course-platform-db
     image: postgres
     ports:
       - 5432:${DATABASE_PORT}

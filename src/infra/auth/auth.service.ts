@@ -2,7 +2,6 @@ import { Role } from '@/domain/course-platform/entities/enums/roles.enum';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { hash } from 'bcryptjs';
-import { AuthServiceInterface } from './auth.interface';
 
 interface User {
   email: string;
@@ -15,7 +14,7 @@ interface SignInProps {
 }
 
 @Injectable()
-export class AuthService implements AuthServiceInterface {
+export class AuthService {
   private users: User[] = [];
 
   constructor(private jwtService: JwtService) {}
@@ -42,6 +41,7 @@ export class AuthService implements AuthServiceInterface {
         role: user.role,
       },
     });
+
     return { token };
   }
 }

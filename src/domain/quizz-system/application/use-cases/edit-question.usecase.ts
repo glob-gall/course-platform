@@ -1,12 +1,7 @@
 import { Either, left, right } from '@/core/types/either';
 import { Question } from '../../entities/question.entity';
 import { QuestionsRepository } from '../repositories/questions.repository';
-import { Answer, AnswerProps } from '../../entities/answer.entity';
-import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
-import { QuizzesRepository } from '../repositories/quizzes.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
-import { AnswersList } from '../../entities/answers-list';
-import { AnswersRepository } from '../repositories/answers.repository';
 
 
 
