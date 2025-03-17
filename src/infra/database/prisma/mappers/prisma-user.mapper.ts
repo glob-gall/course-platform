@@ -1,6 +1,7 @@
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
-import { Role } from '@/domain/course-platform/entities/enums/roles.enum';
-import { User } from '@/domain/course-platform/entities/user.entity';
+import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
+import { User } from '@/domain/user-system/entities/user.entity';
+
 import { User as PrismaUser } from '@prisma/client';
 
 export class PrismaUserMapper {
@@ -22,7 +23,7 @@ export class PrismaUserMapper {
         email: raw.email,
         name: raw.name,
         password: raw.password,
-        role: Role[raw.role],
+        role: UserRole[raw.role],
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },

@@ -6,16 +6,16 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../../decorators/roles.decorator';
-import { Role } from '@/domain/course-platform/entities/enums/roles.enum';
 import { IS_PUBLIC_KEY } from '../../decorators/public.decorator';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { z } from 'zod';
+import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
 
 const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
   user: z.object({
-    role: z.nativeEnum(Role),
+    role: z.nativeEnum(UserRole),
   }),
 });
 
@@ -37,10 +37,10 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>(
+      ROLES_KEY,
+      [context.getHandler(), context.getClass()],
+    );
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
     if (!token) throw new UnauthorizedException();

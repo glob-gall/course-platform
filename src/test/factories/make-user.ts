@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
-import { User, UserProps } from '@/domain/course-platform/entities/user.entity';
-import { Role } from '@/domain/course-platform/entities/enums/roles.enum';
+import { User, UserProps } from '@/domain/user-system/entities/user.entity';
+import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
 
 export function makeUser(
   override: Partial<UserProps> = {},
@@ -12,7 +12,7 @@ export function makeUser(
     {
       name: faker.person.fullName(),
       password: faker.internet.password(),
-      role: Role.Student,
+      role: UserRole.Student,
       email: faker.internet.email(),
       ...override,
     },

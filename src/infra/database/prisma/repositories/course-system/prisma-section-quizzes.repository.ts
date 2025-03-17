@@ -3,7 +3,9 @@ import { PrismaService } from '../../prisma.service';
 import { PrismaSectionQuizzMapper } from '../../mappers/prisma-section-quizz.mapper';
 import { SectionQuizzesRepository } from '@/domain/course-platform/application/repositories/section-quizzes.repository';
 
-export class PrismaSectionQuizzRepository implements SectionQuizzesRepository {
+export class PrismaSectionQuizzesRepository
+  implements SectionQuizzesRepository
+{
   constructor(private readonly prisma: PrismaService) {}
 
   async create(sectionquizz: SectionQuizz): Promise<void> {

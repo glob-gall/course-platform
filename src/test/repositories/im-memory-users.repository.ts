@@ -1,5 +1,5 @@
-import { UsersRepository } from '@/domain/course-platform/application/repositories/users.repository';
-import { User } from '@/domain/course-platform/entities/user.entity';
+import { UsersRepository } from '@/domain/user-system/application/repositories/users.repository';
+import { User } from '@/domain/user-system/entities/user.entity';
 
 export class InMemoryUsersRepository implements UsersRepository {
   public items: User[] = [];

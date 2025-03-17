@@ -1,9 +1,11 @@
-import { UsersRepository } from '@/domain/course-platform/application/repositories/users.repository';
-import { User } from '@/domain/course-platform/entities/user.entity';
 import { PrismaService } from '../../prisma.service';
 import { PrismaUserMapper } from '../../mappers/prisma-user.mapper';
+import { User } from '@/domain/user-system/entities/user.entity';
+import { UsersRepository } from '@/domain/user-system/application/repositories/users.repository';
+import { Injectable } from '@nestjs/common';
 
-export class PrismaUserRepository implements UsersRepository {
+@Injectable()
+export class PrismaUsersRepository implements UsersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(user: User): Promise<void> {

@@ -3,10 +3,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { EnvModule } from '../env/env.module';
 import { EnvService } from '../env/env.service';
-import { AuthService } from './auth.service';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role.guard';
-import { SignInController } from '../http/controllers/auth/sign-in.controller';
 
 @Module({
   imports: [
@@ -28,12 +26,11 @@ import { SignInController } from '../http/controllers/auth/sign-in.controller';
     }),
   ],
   providers: [
-    AuthService,
     {
       provide: APP_GUARD,
       useClass: RolesGuard,
     },
   ],
-  controllers: [SignInController],
+  controllers: [],
 })
 export class AuthModule {}

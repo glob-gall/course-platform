@@ -3,7 +3,7 @@ import { PrismaService } from '../../prisma.service';
 import { PrismaSectionLectureMapper } from '../../mappers/prisma-section-lecture.mapper';
 import { SectionLecturesRepository } from '@/domain/course-platform/application/repositories/section-lectures.repository';
 
-export class PrismaSectionLectureRepository
+export class PrismaSectionLecturesRepository
   implements SectionLecturesRepository
 {
   constructor(private readonly prisma: PrismaService) {}

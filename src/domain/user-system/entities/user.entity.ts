@@ -1,13 +1,13 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
-import { Role } from './enums/roles.enum';
+import { UserRole } from './enums/roles.enum';
 
 export interface UserProps {
   name: string;
   email: string;
   password: string;
-  role: Role;
+  role: UserRole;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -52,7 +52,7 @@ export class User extends Entity<UserProps> {
     const user = new User(
       {
         ...props,
-        role: props.role ?? Role.Student,
+        role: props.role ?? UserRole.Student,
         createdAt: props.createdAt ?? new Date(),
       },
       id,

@@ -1,6 +1,6 @@
-import { Role } from '@/domain/course-platform/entities/enums/roles.enum';
+import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
 import { SetMetadata } from '@nestjs/common';
 
 export const ROLES_KEY = 'roles';
-export const Roles = (...roles: [Role, ...Role[]]) =>
+export const Roles = (...roles: [UserRole, ...UserRole[]]) =>
   SetMetadata(ROLES_KEY, roles);

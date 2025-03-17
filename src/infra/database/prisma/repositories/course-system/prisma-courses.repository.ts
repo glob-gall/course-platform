@@ -5,7 +5,7 @@ import { PrismaCourseMapper } from '../../mappers/prisma-course.mapper';
 import { PaginationParams } from '@/core/repositories/pagination-params';
 import { CourseFilters } from '@/domain/course-platform/application/repositories/filters/course.filter';
 
-export class PrismaCourseRepository implements CoursesRepository {
+export class PrismaCoursesRepository implements CoursesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(course: Course): Promise<void> {

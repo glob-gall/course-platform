@@ -1,5 +1,5 @@
-import { HashComparer } from '@/domain/course-platform/application/cryptography/hash-comparer';
-import { HashGenerator } from '@/domain/course-platform/application/cryptography/hash-generator';
+import { HashComparer } from '@/domain/user-system/application/cryptography/hash-comparer';
+import { HashGenerator } from '@/domain/user-system/application/cryptography/hash-generator';
 import { compare, hash } from 'bcryptjs';
 
 export class BcryptHasher implements HashComparer, HashGenerator {
