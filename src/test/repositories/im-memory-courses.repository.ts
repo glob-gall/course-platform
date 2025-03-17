@@ -32,7 +32,7 @@ export class InMemoryCoursesRepository implements CoursesRepository {
   }
 
   async findMany(
-    { order, title }: CourseFilters,
+    { order, title = '' }: CourseFilters,
     { page }: PaginationParams,
   ): Promise<Course[]> {
     const courses = this.items.filter((item) => item.title.includes(title));

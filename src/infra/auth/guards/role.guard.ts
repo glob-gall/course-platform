@@ -41,27 +41,27 @@ export class RolesGuard implements CanActivate {
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
     );
+    
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
+    const token = request.cookies['user-token']
     if (!token) throw new UnauthorizedException();
+    
+    
     try {
       const payload = await this.jwtService.verifyAsync(token);
-
+      
       request['user'] = payload;
       const userHasPermision = requiredRoles.includes(payload.user.role);
-
+      // console.log({
+      //   userHasPermision,
+      //   userRole: payload.user.role,
+      //   requiredRoles
+      // });
+      
       return userHasPermision;
     } catch {
       throw new UnauthorizedException();
     }
   }
 
-  private extractTokenFromHeader(request: Request): string | undefined {
-    const [type, token] = request.headers.authorization?.split(' ') ?? [];
-    return type === 'Bearer' ? token : undefined;
-  }
-
-  private async validateToken(payload: TokenPayload) {
-    return tokenPayloadSchema.parse(payload);
-  }
 }

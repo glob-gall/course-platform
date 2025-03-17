@@ -30,7 +30,7 @@ export class AuthenticateUserUsecase {
     email,
     password,
   }: AuthenticateUserUsecaseRequest): Promise<AuthenticateUserUsecaseResponse> {
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findByEmail(email);    
     if (!user) {
       return left(new WrongCredentialsError());
     }

@@ -2,6 +2,7 @@ import { Either, right } from '@/core/types/either';
 import { Section } from '../../entities/section.entity';
 import { SectionsRepository } from '../repositories/sections.repository';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
+import { Injectable } from '@nestjs/common';
 
 interface CreateSectionUsecaseRequest {
   description: string;
@@ -11,6 +12,7 @@ interface CreateSectionUsecaseRequest {
 
 type CreateSectionResponse = Either<null, { section: Section }>;
 
+@Injectable()
 export class CreateSectionUsecase {
   constructor(private sectionsRepository: SectionsRepository) {}
 

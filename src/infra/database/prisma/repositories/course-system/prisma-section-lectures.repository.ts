@@ -2,7 +2,9 @@ import { SectionLecture } from '@/domain/course-platform/entities/section-lectur
 import { PrismaService } from '../../prisma.service';
 import { PrismaSectionLectureMapper } from '../../mappers/prisma-section-lecture.mapper';
 import { SectionLecturesRepository } from '@/domain/course-platform/application/repositories/section-lectures.repository';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaSectionLecturesRepository
   implements SectionLecturesRepository
 {

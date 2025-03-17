@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/types/either';
 import { CoursesRepository } from '../repositories/courses.repository';
 import { Course } from '../../entities/course.entity';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { Injectable } from '@nestjs/common';
 
 interface FetchCourseByIdUsecaseRequest {
   id: string;
@@ -12,6 +13,7 @@ type FetchCourseByIdResponse = Either<
   { course: Course }
 >;
 
+@Injectable()
 export class FetchCourseByIdUsecase {
   constructor(private coursesRepository: CoursesRepository) {}
 

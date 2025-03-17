@@ -2,14 +2,17 @@ import { Either, right } from '@/core/types/either';
 import { CoursesRepository } from '../repositories/courses.repository';
 import { Course } from '../../entities/course.entity';
 import { Order } from '@/core/repositories/filters';
+import { Injectable } from '@nestjs/common';
 
 interface FetchManyCoursesUsecaseRequest {
-  title: string;
+  title?: string;
   order: Order;
   page: number;
 }
 
 type FetchManyCoursesResponse = Either<null, { courses: Course[] }>;
+
+@Injectable()
 
 export class FetchManyCoursesUsecase {
   constructor(private coursesRepository: CoursesRepository) {}

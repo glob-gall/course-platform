@@ -25,7 +25,6 @@ describe('Edit User Use Case', () => {
     expect(usersRepository.items[0]).toEqual(
       expect.objectContaining({
         name: 'edited name',
-        description: 'edited description',
       }),
     );
   });

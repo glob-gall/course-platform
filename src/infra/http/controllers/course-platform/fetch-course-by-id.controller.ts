@@ -1,23 +1,20 @@
 import { FetchCourseByIdUsecase } from '@/domain/course-platform/application/use-cases/fetch-course-by-id.usecase';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param } from '@nestjs/common';
 import { CoursePresenter } from '../../presenters/course.presenter';
+import { HttpError } from '../error/http.error';
 
-// const fetchCourseBodySchema = z.object({
-//   courseId: z.string(),
-// });
-
-// type FetchCourseBodySchema = z.infer<typeof fetchCourseBodySchema>;
-// const validationPipe = new ZodValidationPipe(fetchCourseBodySchema);
-
-@Controller()
-export class AuthController {
+@Controller('/course/:courseId')
+export class fetchCourseByIdController {
   constructor(private fetchCourse: FetchCourseByIdUsecase) {}
 
-  @Get('/course/:courseId')
-  async siginIn(@Param('courseId') courseId: string) {
+  @Get()
+  async exec(@Param('courseId') courseId: string) {
     const response = await this.fetchCourse.exec({ id: courseId });
     if (response.isLeft()) {
-      throw response.value;
+      throw new HttpError({
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
+        message: 'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
+      });
     }
     return { course: CoursePresenter.toHTTP(response.value.course) };
   }

@@ -2,8 +2,10 @@ import { SectionsRepository } from '@/domain/course-platform/application/reposit
 import { PrismaService } from '../../prisma.service';
 import { Section } from '@/domain/course-platform/entities/section.entity';
 import { PrismaSectionMapper } from '../../mappers/prisma-section.mapper';
+import { Injectable } from '@nestjs/common';
 
-export class PrismaSectionRepository implements SectionsRepository {
+@Injectable()
+export class PrismaSectionsRepository implements SectionsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(section: Section): Promise<void> {
@@ -42,6 +44,11 @@ export class PrismaSectionRepository implements SectionsRepository {
     const sections = await this.prisma.section.findMany({
       where: { courseId },
     });
+    return sections.map(PrismaSectionMapper.toDomain);
+  }
+
+  async findMany(): Promise<Section[]> {
+    const sections = await this.prisma.section.findMany();
     return sections.map(PrismaSectionMapper.toDomain);
   }
 }

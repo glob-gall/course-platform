@@ -2,9 +2,9 @@ import { Either, left, right } from '@/core/types/either';
 import { User } from '../../entities/user.entity';
 import { UsersRepository } from '../repositories/users.repository';
 import { UserRole } from '../../entities/enums/roles.enum';
-import { UserAlreadyExistsError } from '@/core/errors/user-already-exists.error';
 import { Injectable } from '@nestjs/common';
 import { HashGenerator } from '../cryptography/hash-generator';
+import { UserAlreadyExistsError } from '@/domain/course-platform/application/use-cases/errors/user-already-exists.error';
 
 export interface CreateUserUsecaseRequest {
   name: string;

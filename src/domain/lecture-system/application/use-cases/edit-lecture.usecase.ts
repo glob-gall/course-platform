@@ -31,7 +31,7 @@ export class EditLectureUsecase {
     lecture.title = title;
     lecture.videoURL = videoURL;
     lecture.audioURL = audioURL;
-
+    
     await this.lecturesRepository.save(lecture);
 
     return right({ lecture });

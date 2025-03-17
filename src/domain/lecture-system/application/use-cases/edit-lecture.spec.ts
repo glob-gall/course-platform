@@ -22,7 +22,7 @@ describe('Edit Lecture Use Case', () => {
     });
 
     expect(response.isRight()).toBeTruthy();
-
+    
     expect(lecturesRepository.items[0]).toEqual(
       expect.objectContaining({
         title: 'edited title',

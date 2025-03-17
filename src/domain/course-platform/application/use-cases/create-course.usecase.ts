@@ -1,7 +1,9 @@
-import { Either, right } from '@/core/types/either';
+import { Either, left, right } from '@/core/types/either';
 import { Course } from '../../entities/course.entity';
 import { CoursesRepository } from '../repositories/courses.repository';
 import { Slug } from '@/core/entities/value-objects/slug';
+import { Injectable } from '@nestjs/common';
+import { SlugAlreadyInUseError } from './errors/slug-in-use.error';
 
 interface CreateCourseUsecaseRequest {
   description: string;
@@ -9,8 +11,9 @@ interface CreateCourseUsecaseRequest {
   slug?: string;
 }
 
-type CreateCourseResponse = Either<null, { course: Course }>;
+type CreateCourseResponse = Either<SlugAlreadyInUseError, { course: Course }>;
 
+@Injectable()
 export class CreateCourseUsecase {
   constructor(private coursesRepository: CoursesRepository) {}
 
@@ -24,8 +27,12 @@ export class CreateCourseUsecase {
       title,
       slug: slug ? Slug.create(slug) : Slug.createFromText(title),
     });
+    const courseWithSameSlug = await this.coursesRepository.findBySlug(course.slug.value);
+    if(courseWithSameSlug) return left(new SlugAlreadyInUseError())
+    
     await this.coursesRepository.create(course);
-
+    
+    console.log({domain: course});
     return right({ course });
   }
 }

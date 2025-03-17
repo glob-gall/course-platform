@@ -2,7 +2,9 @@ import { SectionQuizz } from '@/domain/course-platform/entities/section-quizz.en
 import { PrismaService } from '../../prisma.service';
 import { PrismaSectionQuizzMapper } from '../../mappers/prisma-section-quizz.mapper';
 import { SectionQuizzesRepository } from '@/domain/course-platform/application/repositories/section-quizzes.repository';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaSectionQuizzesRepository
   implements SectionQuizzesRepository
 {

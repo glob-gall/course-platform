@@ -1,8 +1,8 @@
 import { InMemoryUsersRepository } from '@/test/repositories/im-memory-users.repository';
 import { CreateUserUsecase } from './create-user.usecase';
 import { FakeHasher } from '@/test/cryptography/fake-hasher';
-import { UserAlreadyExistsError } from '@/core/errors/user-already-exists.error';
 import { makeUser } from '@/test/factories/make-user';
+import { UserAlreadyExistsError } from '@/domain/course-platform/application/use-cases/errors/user-already-exists.error';
 
 let usersRepository: InMemoryUsersRepository;
 let hasher: FakeHasher;

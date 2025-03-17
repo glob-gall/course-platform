@@ -8,6 +8,8 @@ import { PrismaSectionQuizzesRepository } from './prisma/repositories/course-sys
 import { SectionQuizzesRepository } from '@/domain/course-platform/application/repositories/section-quizzes.repository';
 import { SectionLecturesRepository } from '@/domain/course-platform/application/repositories/section-lectures.repository';
 import { PrismaSectionLecturesRepository } from './prisma/repositories/course-system/prisma-section-lectures.repository';
+import { SectionsRepository } from '@/domain/course-platform/application/repositories/sections.repository';
+import { PrismaSectionsRepository } from './prisma/repositories/course-system/prisma-sections.repository';
 
 @Module({
   providers: [
@@ -19,6 +21,10 @@ import { PrismaSectionLecturesRepository } from './prisma/repositories/course-sy
     {
       provide: CoursesRepository,
       useClass: PrismaCoursesRepository,
+    },
+    {
+      provide: SectionsRepository,
+      useClass: PrismaSectionsRepository,
     },
     {
       provide: SectionQuizzesRepository,
@@ -33,6 +39,7 @@ import { PrismaSectionLecturesRepository } from './prisma/repositories/course-sy
     PrismaService,
     UsersRepository,
     CoursesRepository,
+    SectionsRepository,
     SectionQuizzesRepository,
     SectionLecturesRepository,
   ],

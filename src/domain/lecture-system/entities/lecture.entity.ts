@@ -17,6 +17,15 @@ export class Lecture extends Entity<LectureProps> {
   get title() {
     return this.props.title;
   }
+  get description() {
+    return this.props.description;
+  }
+  set description(description: string) {
+    this.props.description = description;
+
+    this.touch();
+  }
+
   set title(title: string) {
     this.props.title = title;
 
@@ -54,14 +63,8 @@ export class Lecture extends Entity<LectureProps> {
     this.touch();
   }
 
-  get description() {
-    return this.props.description;
-  }
-  set description(description: string) {
-    this.props.description = description;
 
-    this.touch();
-  }
+
 
   touch() {
     this.props.updatedAt = new Date();

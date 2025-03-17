@@ -1,9 +1,9 @@
-import { UserAlreadyExistsError } from '@/core/errors/user-already-exists.error';
 import { CreateUserUsecase } from '@/domain/user-system/application/use-cases/create-user.usecase';
 import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
 import { Public } from '@/infra/decorators/public.decorator';
 import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
 import { HttpError } from '../error/http.error';
+import { UserAlreadyExistsError } from '@/domain/course-platform/application/use-cases/errors/user-already-exists.error';
 interface CreateUserProps {
   name: string;
   email: string;
