@@ -8,6 +8,8 @@ export interface QuestionProps {
   title: string;
   description: string;
   videoURL?: string | null;
+  imageURL?: string | null;
+  externalResource?: string | null
   audioURL?: string | null;
 
   answers: AnswersList;
@@ -30,6 +32,7 @@ export class Question extends Entity<QuestionProps> {
     return this.props.quizzId;
   }
 
+
   get createdAt() {
     return this.props.createdAt;
   }
@@ -48,12 +51,28 @@ export class Question extends Entity<QuestionProps> {
 
     this.touch();
   }
+  get externalResource() {
+    return this.props.externalResource;
+  }
+  set externalResource(externalResource: string | null | undefined) {
+    this.props.externalResource = externalResource;
+
+    this.touch();
+  }
 
   get audioURL() {
     return this.props.audioURL;
   }
   set audioURL(audioURL: string | null | undefined) {
     this.props.audioURL = audioURL;
+
+    this.touch();
+  }
+  get imageURL() {
+    return this.props.imageURL;
+  }
+  set imageURL(imageURL: string | null | undefined) {
+    this.props.imageURL = imageURL;
 
     this.touch();
   }

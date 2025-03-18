@@ -20,7 +20,7 @@ const validationPipe = new ZodValidationPipe(fetchCourseQuerySchema);
 @Controller('/course')
 export class fetchManyCoursesController {
   constructor(private fetchCourses: FetchManyCoursesUsecase) {}
-  
+
   @Get()
   @Roles(UserRole.Admin, UserRole.CourseOwner)
   async exec(
@@ -34,7 +34,8 @@ export class fetchManyCoursesController {
     if (result.isLeft()) {
       throw new HttpError({
         code: HttpStatus.INTERNAL_SERVER_ERROR,
-        message: 'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
+        message:
+          'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
       });
     }
 

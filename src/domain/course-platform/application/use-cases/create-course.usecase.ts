@@ -27,12 +27,13 @@ export class CreateCourseUsecase {
       title,
       slug: slug ? Slug.create(slug) : Slug.createFromText(title),
     });
-    const courseWithSameSlug = await this.coursesRepository.findBySlug(course.slug.value);
-    if(courseWithSameSlug) return left(new SlugAlreadyInUseError())
-    
+    const courseWithSameSlug = await this.coursesRepository.findBySlug(
+      course.slug.value,
+    );
+    if (courseWithSameSlug) return left(new SlugAlreadyInUseError());
+
     await this.coursesRepository.create(course);
-    
-    console.log({domain: course});
+
     return right({ course });
   }
 }

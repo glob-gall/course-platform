@@ -46,13 +46,14 @@ export class Quizz extends Entity<QuizzProps> {
   }
 
   static create(
-    props: Optional<QuizzProps, 'createdAt'>,
+    props: Optional<QuizzProps, 'createdAt'| 'questions'>,
     id?: UniqueEntityID,
   ): Quizz {
     const quizz = new Quizz(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
+        questions: props.questions ?? []
       },
       id,
     );

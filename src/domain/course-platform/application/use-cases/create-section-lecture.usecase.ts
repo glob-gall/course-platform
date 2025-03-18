@@ -6,13 +6,14 @@ import { SectionsRepository } from '../repositories/sections.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import { LecturesRepository } from '@/domain/lecture-system/application/repositories/lectures.repository';
 import { Lecture } from '@/domain/lecture-system/entities/lecture.entity';
+import { Injectable } from '@nestjs/common';
 
 interface CreateSectionLectureUsecaseRequest {
   description: string;
   title: string;
   sectionId: string;
-  lectureDescription: string;
   lectureTitle: string;
+  lectureDescription: string;
   lectureVideoURL?: string;
   lectureAudioURL?: string;
   lectureExternalResource?: string;
@@ -23,6 +24,7 @@ type CreateSectionLectureResponse = Either<
   { sectionlecture: SectionLecture }
 >;
 
+@Injectable()
 export class CreateSectionLectureUsecase {
   constructor(
     private lecturesRepository: LecturesRepository,

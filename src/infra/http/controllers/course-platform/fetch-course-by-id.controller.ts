@@ -13,7 +13,8 @@ export class fetchCourseByIdController {
     if (response.isLeft()) {
       throw new HttpError({
         code: HttpStatus.INTERNAL_SERVER_ERROR,
-        message: 'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
+        message:
+          'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
       });
     }
     return { course: CoursePresenter.toHTTP(response.value.course) };

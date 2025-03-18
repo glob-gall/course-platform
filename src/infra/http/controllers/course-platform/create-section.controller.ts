@@ -6,41 +6,41 @@ import { CreateSectionUsecase } from '@/domain/course-platform/application/use-c
 import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { Roles } from '@/infra/decorators/roles.decorator';
 import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
-import { SlugAlreadyInUseError } from '@/domain/course-platform/application/use-cases/errors/slug-in-use.error';
 
 const createSectionBodySchema = z.object({
   description: z.string(),
   title: z.string().min(8),
   courseId: z.string().nonempty(),
-})
-type CreateSectionBodySchema = z.infer<typeof createSectionBodySchema>
+});
+type CreateSectionBodySchema = z.infer<typeof createSectionBodySchema>;
 const createSectionValidationPipe = new ZodValidationPipe(
   createSectionBodySchema,
-)
+);
 
 @Controller('/section')
 export class createSectionController {
   constructor(private createSection: CreateSectionUsecase) {}
-  
+
   @Post()
   @Roles(UserRole.CourseOwner, UserRole.Admin)
   async exec(
-    @Body(createSectionValidationPipe) {description,courseId,title}:CreateSectionBodySchema 
+    @Body(createSectionValidationPipe)
+    { description, courseId, title }: CreateSectionBodySchema,
   ) {
-    
-    const result = await this.createSection.exec({ 
+    const result = await this.createSection.exec({
       description,
       title,
-      courseId
-     });
-     
+      courseId,
+    });
+
     if (result.isLeft()) {
       throw new HttpError({
         code: HttpStatus.INTERNAL_SERVER_ERROR,
-        message: 'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
+        message:
+          'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
       });
     }
-    
+
     return { section: SectionPresenter.toHTTP(result.value.section) };
   }
 }

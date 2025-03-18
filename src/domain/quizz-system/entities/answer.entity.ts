@@ -9,6 +9,8 @@ export interface AnswerProps {
   description: string;
   videoURL?: string | null;
   audioURL?: string | null;
+  imageURL?: string | null;
+  externalResource?: string | null;
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -17,6 +19,12 @@ export interface AnswerProps {
 export class Answer extends Entity<AnswerProps> {
   get questionId() {
     return this.props.questionId;
+  }
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  get updatedAt() {
+    return this.props.updatedAt;
   }
 
   get isCorrect() {
@@ -37,6 +45,22 @@ export class Answer extends Entity<AnswerProps> {
   }
   set audioURL(audioURL: string | null | undefined) {
     this.props.audioURL = audioURL;
+
+    this.touch();
+  }
+  get imageURL() {
+    return this.props.imageURL;
+  }
+  set imageURL(imageURL: string | null | undefined) {
+    this.props.imageURL = imageURL;
+
+    this.touch();
+  }
+  get externalResource() {
+    return this.props.externalResource;
+  }
+  set externalResource(externalResource: string | null | undefined) {
+    this.props.externalResource = externalResource;
 
     this.touch();
   }

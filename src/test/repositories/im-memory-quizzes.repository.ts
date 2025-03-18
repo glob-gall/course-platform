@@ -22,4 +22,8 @@ export class InMemoryQuizzesRepository implements QuizzesRepository {
     const quizzIndex = this.items.findIndex((item) => item.id === quizz.id);
     this.items.splice(quizzIndex, 1);
   }
+
+  async findMany(): Promise<Quizz[]> {
+    return this.items
+  }
 }

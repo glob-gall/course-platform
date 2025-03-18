@@ -10,6 +10,14 @@ import { SectionLecturesRepository } from '@/domain/course-platform/application/
 import { PrismaSectionLecturesRepository } from './prisma/repositories/course-system/prisma-section-lectures.repository';
 import { SectionsRepository } from '@/domain/course-platform/application/repositories/sections.repository';
 import { PrismaSectionsRepository } from './prisma/repositories/course-system/prisma-sections.repository';
+import { PrismaLecturesRepository } from './prisma/repositories/course-system/prisma-lectures.repository';
+import { LecturesRepository } from '@/domain/lecture-system/application/repositories/lectures.repository';
+import { QuizzesRepository } from '@/domain/quizz-system/application/repositories/quizzes.repository';
+import { PrismaQuizzesRepository } from './prisma/repositories/course-system/prisma-quizzes.repository';
+import { QuestionsRepository } from '@/domain/quizz-system/application/repositories/questions.repository';
+import { PrismaQuestionsRepository } from './prisma/repositories/course-system/prisma-questions.repository';
+import { PrismaAnswersRepository } from './prisma/repositories/course-system/prisma-answers.repository';
+import { AnswersRepository } from '@/domain/quizz-system/application/repositories/answers.repository';
 
 @Module({
   providers: [
@@ -23,6 +31,14 @@ import { PrismaSectionsRepository } from './prisma/repositories/course-system/pr
       useClass: PrismaCoursesRepository,
     },
     {
+      provide: LecturesRepository,
+      useClass: PrismaLecturesRepository,
+    },
+    {
+      provide: QuizzesRepository,
+      useClass: PrismaQuizzesRepository,
+    },
+    {
       provide: SectionsRepository,
       useClass: PrismaSectionsRepository,
     },
@@ -34,6 +50,14 @@ import { PrismaSectionsRepository } from './prisma/repositories/course-system/pr
       provide: SectionLecturesRepository,
       useClass: PrismaSectionLecturesRepository,
     },
+    {
+      provide: QuestionsRepository,
+      useClass: PrismaQuestionsRepository,
+    },
+    {
+      provide: AnswersRepository,
+      useClass: PrismaAnswersRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -42,6 +66,10 @@ import { PrismaSectionsRepository } from './prisma/repositories/course-system/pr
     SectionsRepository,
     SectionQuizzesRepository,
     SectionLecturesRepository,
+    LecturesRepository,
+    QuizzesRepository,
+    QuestionsRepository,
+    AnswersRepository,
   ],
 })
 export class DatabaseModule {}

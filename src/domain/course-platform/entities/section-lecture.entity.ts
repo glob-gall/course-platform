@@ -2,9 +2,11 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 import { SectionItemProps } from '@/domain/course-platform/entities/section-item.entity';
+import { Lecture } from '@/domain/lecture-system/entities/lecture.entity';
 
 export interface SectionLectureProps extends SectionItemProps {
   lectureId: UniqueEntityID;
+  lecture?: Lecture | null;
 }
 
 export class SectionLecture extends Entity<SectionLectureProps> {
@@ -19,6 +21,12 @@ export class SectionLecture extends Entity<SectionLectureProps> {
   }
   get description() {
     return this.props.description;
+  }
+  get lecture() {
+    return this.props.lecture;
+  }
+  set lecture(lecture: Lecture | null | undefined) {
+    this.props.lecture = lecture;
   }
 
   get createdAt() {

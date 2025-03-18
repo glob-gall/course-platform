@@ -8,7 +8,6 @@ import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../../decorators/roles.decorator';
 import { IS_PUBLIC_KEY } from '../../decorators/public.decorator';
 import { JwtService } from '@nestjs/jwt';
-import { Request } from 'express';
 import { z } from 'zod';
 import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
 
@@ -41,15 +40,14 @@ export class RolesGuard implements CanActivate {
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
     );
-    
+
     const request = context.switchToHttp().getRequest();
-    const token = request.cookies['user-token']
+    const token = request.cookies['user-token'];
     if (!token) throw new UnauthorizedException();
-    
-    
+
     try {
       const payload = await this.jwtService.verifyAsync(token);
-      
+
       request['user'] = payload;
       const userHasPermision = requiredRoles.includes(payload.user.role);
       // console.log({
@@ -57,11 +55,10 @@ export class RolesGuard implements CanActivate {
       //   userRole: payload.user.role,
       //   requiredRoles
       // });
-      
+
       return userHasPermision;
     } catch {
       throw new UnauthorizedException();
     }
   }
-
 }

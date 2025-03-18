@@ -5,4 +5,5 @@ export abstract class QuestionsRepository {
   abstract save(question: Question): Promise<void>;
   abstract delete(question: Question): Promise<void>;
   abstract findById(id: string): Promise<Question | null>;
+  abstract findMany(): Promise<Question[]>;
 }

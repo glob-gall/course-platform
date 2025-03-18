@@ -1,47 +1,47 @@
-import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Param, Put } from '@nestjs/common';
 import { CoursePresenter } from '../../presenters/course.presenter';
 import { HttpError } from '../error/http.error';
 import { z } from 'zod';
-import { CreateCourseUsecase } from '@/domain/course-platform/application/use-cases/create-course.usecase';
 import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { Roles } from '@/infra/decorators/roles.decorator';
 import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
-import { SlugAlreadyInUseError } from '@/domain/course-platform/application/use-cases/errors/slug-in-use.error';
+import { EditCourseUsecase } from '@/domain/course-platform/application/use-cases/edit-course.usecase';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 
-const createCourseBodySchema = z.object({
+const editcourseBodySchema = z.object({
   description: z.string(),
+  slug: z.string(),
   title: z.string().min(8),
-  slug: z.string().optional(),
 });
-type CreateCourseBodySchema = z.infer<typeof createCourseBodySchema>;
-const createCourseValidationPipe = new ZodValidationPipe(
-  createCourseBodySchema,
-);
+type EditcourseBodySchema = z.infer<typeof editcourseBodySchema>;
+const editcourseValidationPipe = new ZodValidationPipe(editcourseBodySchema);
 
-@Controller('/course')
-export class createCourseController {
-  constructor(private createCourse: CreateCourseUsecase) {}
+@Controller('/course/:courseId')
+export class editcourseController {
+  constructor(private editcourse: EditCourseUsecase) {}
 
-  @Post()
+  @Put()
   @Roles(UserRole.CourseOwner, UserRole.Admin)
   async exec(
-    @Body(createCourseValidationPipe)
-    { description, slug, title }: CreateCourseBodySchema,
+    @Param('courseId') courseId: string,
+    @Body(editcourseValidationPipe)
+    { description, title, slug }: EditcourseBodySchema,
   ) {
-    const result = await this.createCourse.exec({
+    const result = await this.editcourse.exec({
       description,
       title,
       slug,
+      id: courseId,
     });
 
     if (result.isLeft()) {
       const error = result.value;
 
       switch (error.constructor) {
-        case SlugAlreadyInUseError:
+        case ResourceNotFoundError:
           throw new HttpError({
             code: HttpStatus.CONFLICT,
-            message: 'Este slug já está em uso.',
+            message: 'Curso não encontrado.',
           });
 
         default:

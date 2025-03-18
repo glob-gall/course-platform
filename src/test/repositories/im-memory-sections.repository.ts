@@ -29,7 +29,8 @@ export class InMemorySectionsRepository implements SectionsRepository {
     );
     return sections;
   }
+
   async findMany(): Promise<Section[]> {
-    return this.items
+    return this.items;
   }
 }

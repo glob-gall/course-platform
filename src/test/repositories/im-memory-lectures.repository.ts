@@ -3,6 +3,11 @@ import { Lecture } from '@/domain/lecture-system/entities/lecture.entity';
 
 export class InMemoryLecturesRepository implements LecturesRepository {
   public items: Lecture[] = [];
+
+  async findMany(): Promise<Lecture[]> {
+    return this.items;
+  }
+
   async create(lecture: Lecture): Promise<void> {
     this.items.push(lecture);
   }

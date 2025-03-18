@@ -6,20 +6,16 @@ import { PaginationParams } from '@/core/repositories/pagination-params';
 import { CourseFilters } from '@/domain/course-platform/application/repositories/filters/course.filter';
 import { Injectable } from '@nestjs/common';
 
-
 @Injectable()
 export class PrismaCoursesRepository implements CoursesRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(course: Course): Promise<void> {
-    
     const data = PrismaCourseMapper.toPrisma(course);
-    
+
     await this.prisma.course.create({
       data,
     });
-    console.log({CHECK:'CADASTROU O CURSO'});
-    
   }
 
   async save(course: Course): Promise<void> {

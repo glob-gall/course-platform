@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/types/either';
 import { Section } from '../../entities/section.entity';
 import { SectionsRepository } from '../repositories/sections.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { Injectable } from '@nestjs/common';
 
 interface EditSectionUsecaseRequest {
   id: string;
@@ -11,6 +12,7 @@ interface EditSectionUsecaseRequest {
 
 type EditSectionResponse = Either<ResourceNotFoundError, { section: Section }>;
 
+@Injectable()
 export class EditSectionUsecase {
   constructor(private sectionsRepository: SectionsRepository) {}
 

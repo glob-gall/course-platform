@@ -6,16 +6,14 @@ import { SectionsRepository } from '../repositories/sections.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import { QuizzesRepository } from '@/domain/quizz-system/application/repositories/quizzes.repository';
 import { Quizz } from '@/domain/quizz-system/entities/quizz.entity';
+import { Injectable } from '@nestjs/common';
 
 interface CreateSectionQuizzUsecaseRequest {
-  description: string;
-  title: string;
   sectionId: string;
+  title: string;
+  description: string;
   quizzDescription: string;
   quizzTitle: string;
-  quizzVideoURL?: string;
-  quizzAudioURL?: string;
-  quizzExternalResource?: string;
 }
 
 type CreateSectionQuizzResponse = Either<
@@ -23,6 +21,7 @@ type CreateSectionQuizzResponse = Either<
   { sectionQuizz: SectionQuizz }
 >;
 
+@Injectable()
 export class CreateSectionQuizzUsecase {
   constructor(
     private quizzsRepository: QuizzesRepository,
