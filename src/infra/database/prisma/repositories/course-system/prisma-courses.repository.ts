@@ -52,12 +52,11 @@ export class PrismaCoursesRepository implements CoursesRepository {
   }
 
   async findMany(
-    { order, title }: CourseFilters,
+    { title }: CourseFilters,
     { page }: PaginationParams,
   ): Promise<Course[]> {
     const courses = await this.prisma.course.findMany({
       where: { title: { contains: title } },
-      orderBy: { createdAt: order },
       take: 20,
       skip: (page - 1) * 20,
     });

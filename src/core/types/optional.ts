@@ -1,7 +1,7 @@
 /**
  * Make some property optional on type
  *
- * @example
+ * @examples
  * ```typescript
  * type Post {
  *  id: string;

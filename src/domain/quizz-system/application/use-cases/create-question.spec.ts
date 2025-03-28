@@ -47,7 +47,7 @@ describe('Create Section Use Case', () => {
 
     expect(questionsRepository.items[0].title).toEqual('title 01');
     expect(questionsRepository.items[0].description).toEqual('description-01');
-    expect(questionsRepository.items[0].answers.getItems()).toEqual(
+    expect(answersRepository.items).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ description: 'answer-01', isCorrect: false }),
         expect.objectContaining({ description: 'answer-02', isCorrect: true }),
