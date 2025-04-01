@@ -12,4 +12,6 @@ export abstract class CoursesRepository {
     filters: CourseFilters,
     pageParams: PaginationParams,
   ): Promise<Course[]>;
+
+  abstract findManyByIds(ids: string[]): Promise<Course[]>;
 }
