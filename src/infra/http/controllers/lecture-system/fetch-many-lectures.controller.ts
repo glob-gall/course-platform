@@ -21,7 +21,7 @@ export class fetchManyLecturesController {
       });
     }
     return {
-      lectures: result.value.lectures.map(LecturePresenter.toHTTP)
-    }
+      lectures: result.value.lectures.map(LecturePresenter.toHTTP),
+    };
   }
 }

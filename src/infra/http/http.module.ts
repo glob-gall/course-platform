@@ -32,9 +32,28 @@ import { fetchManyQuestionsController } from './controllers/quizz-system/fetch-m
 import { FetchManyQuestionsUsecase } from '@/domain/quizz-system/application/use-cases/fetch-many-question.usecase';
 import { createQuestionController } from './controllers/quizz-system/create-question.controller';
 import { CreateQuestionUsecase } from '@/domain/quizz-system/application/use-cases/create-question.usecase';
+import { PaymentModule } from '../payment-system/payment.module';
+import { CreateProductUsecase } from '@/domain/product-system/application/use-cases/create-product.usecase';
+import { CreatePurchaseUsecase } from '@/domain/product-system/application/use-cases/create-purchase.usecase';
+import { CreateSubscriptionUsecase } from '@/domain/product-system/application/use-cases/create-subscription.usecase';
+import { DeleteProductUsecase } from '@/domain/product-system/application/use-cases/delete-product.usecase';
+import { DeleteSubscriptionUsecase } from '@/domain/product-system/application/use-cases/delete-subscription.usecase';
+// import { EditProductUsecase } from '@/domain/product-system/application/use-cases/edit-product.usecase';
+// import { EditSubscriptionUsecase } from '@/domain/product-system/application/use-cases/edit-subscription.usecase';
+import { FetchManyProductsUsecase } from '@/domain/product-system/application/use-cases/fetch-many-products.usecase';
+import { FetchManyPurchasesUsecase } from '@/domain/product-system/application/use-cases/fetch-many-purchases.usecase';
+import { FetchManySubscriptionsUsecase } from '@/domain/product-system/application/use-cases/fetch-many-subscriptions.usecase';
+import { createProductController } from './controllers/product-system/create-product.controller';
+import { createPurchaseController } from './controllers/product-system/create-purchase.controller';
+import { createSubscriptionController } from './controllers/product-system/create-subscription.controller';
+import { deleteProductController } from './controllers/product-system/delete-product.controller';
+import { deleteSubscriptionController } from './controllers/product-system/delete-subscription.controller';
+import { fetchManyPurchasesController } from './controllers/product-system/fetch-many-purchases.controller';
+import { fetchManyProductsController } from './controllers/product-system/fetch-many-products.controller';
+import { fetchManySubscriptionsController } from './controllers/product-system/fetch-many-subscriptions.controller';
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule, AuthModule],
+  imports: [DatabaseModule, CryptographyModule, AuthModule, PaymentModule],
   providers: [
     CreateUserUsecase,
     AuthenticateUserUsecase,
@@ -50,6 +69,18 @@ import { CreateQuestionUsecase } from '@/domain/quizz-system/application/use-cas
     CreateSectionQuizzUsecase,
     FetchManyQuestionsUsecase,
     CreateQuestionUsecase,
+
+    //Product System
+    CreateProductUsecase,
+    CreatePurchaseUsecase,
+    CreateSubscriptionUsecase,
+    DeleteProductUsecase,
+    DeleteSubscriptionUsecase,
+    // EditProductUsecase,
+    // EditSubscriptionUsecase,
+    FetchManyProductsUsecase,
+    FetchManyPurchasesUsecase,
+    FetchManySubscriptionsUsecase,
   ],
   controllers: [
     createUserController,
@@ -66,6 +97,16 @@ import { CreateQuestionUsecase } from '@/domain/quizz-system/application/use-cas
     createSectionQuizzController,
     fetchManyQuestionsController,
     createQuestionController,
+
+    //Product System
+    createProductController,
+    createPurchaseController,
+    createSubscriptionController,
+    deleteProductController,
+    deleteSubscriptionController,
+    fetchManyProductsController,
+    fetchManyPurchasesController,
+    fetchManySubscriptionsController,
   ],
 })
 export class HttpModule {}

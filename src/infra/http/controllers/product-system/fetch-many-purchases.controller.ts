@@ -1,14 +1,14 @@
 import { Controller, Get, HttpStatus } from '@nestjs/common';
 import { HttpError } from '../error/http.error';
-import { FetchManyProductsUsecase } from '@/domain/product-system/application/use-cases/fetch-many-products.usecase';
+import { FetchManyPurchasesUsecase } from '@/domain/product-system/application/use-cases/fetch-many-purchases.usecase';
 
-@Controller('/product')
-export class fetchManyProductsController {
-  constructor(private fetchmanyProduct: FetchManyProductsUsecase) {}
+@Controller('/purchase')
+export class fetchManyPurchasesController {
+  constructor(private fetchmanyPurchase: FetchManyPurchasesUsecase) {}
 
   @Get()
   async get() {
-    const result = await this.fetchmanyProduct.exec();
+    const result = await this.fetchmanyPurchase.exec();
 
     if (result.isLeft()) {
       throw new HttpError({

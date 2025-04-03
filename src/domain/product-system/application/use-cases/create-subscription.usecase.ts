@@ -5,6 +5,7 @@ import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { CoursesRepository } from '@/domain/course-platform/application/repositories/courses.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import { PaymentCycle } from '../../entities/enum/payment_cycle';
+import { Injectable } from '@nestjs/common';
 
 interface CreateSubscriptionRequest {
   title: string;
@@ -19,6 +20,7 @@ type CreateSubscriptionResponse = Either<
   { subscription: Subscription }
 >;
 
+@Injectable()
 export class CreateSubscriptionUsecase {
   constructor(
     private subscriptionsRepository: SubscriptionsRepository,

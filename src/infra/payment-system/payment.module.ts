@@ -1,8 +1,10 @@
 import { EnvModule } from '@/infra/env/env.module';
 import { EnvService } from '@/infra/env/env.service';
-import { AssasPaymentService } from '@/infra/payment-system/assas-payment-.service';
 import { HttpModule as AxiosHttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
+import { AssasPaymentService } from './asaas/assas-payment-.service';
+import { AssasHttpService } from './asaas/assas-http.service';
+import { PaymentService } from '@/domain/product-system/payment-service/payment.service';
 
 @Module({
   imports: [
@@ -19,7 +21,13 @@ import { Module } from '@nestjs/common';
       }),
     }),
   ],
-  providers: [AssasPaymentService],
+  providers: [
+    {
+      provide: PaymentService,
+      useClass: AssasPaymentService,
+    },
+    AssasHttpService,
+  ],
   exports: [AssasPaymentService],
 })
 export class PaymentModule {}

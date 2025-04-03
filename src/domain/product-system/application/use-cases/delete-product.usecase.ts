@@ -1,6 +1,7 @@
 import { Either, left, right } from '@/core/types/either';
 import { ProductsRepository } from '../repositories/products.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { Injectable } from '@nestjs/common';
 
 interface DeleteProductRequest {
   id: string;
@@ -8,6 +9,7 @@ interface DeleteProductRequest {
 
 type DeleteProductResponse = Either<ResourceNotFoundError, null>;
 
+@Injectable()
 export class DeleteProductUsecase {
   constructor(private productsRepository: ProductsRepository) {}
 

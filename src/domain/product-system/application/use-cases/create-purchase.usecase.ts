@@ -8,6 +8,7 @@ import { PaymentType } from '../../entities/enum/payment-type';
 import { UsersRepository } from '@/domain/user-system/application/repositories/users.repository';
 import { sumProductPrices } from '../utils/sum-product-prices';
 import { PaymentService } from '../../payment-service/payment.service';
+import { Injectable } from '@nestjs/common';
 
 interface CreatePurchaseRequest {
   products: string[];
@@ -21,6 +22,7 @@ type CreatePurchaseResponse = Either<
   { purchase: Purchase }
 >;
 
+@Injectable()
 export class CreatePurchaseUsecase {
   constructor(
     private purchasesRepository: PurchasesRepository,

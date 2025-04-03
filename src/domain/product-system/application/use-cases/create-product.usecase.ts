@@ -4,6 +4,7 @@ import { ProductsRepository } from '../repositories/products.repository';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { CoursesRepository } from '@/domain/course-platform/application/repositories/courses.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { Injectable } from '@nestjs/common';
 
 interface CreateProductRequest {
   title: string;
@@ -19,6 +20,7 @@ type CreateProductResponse = Either<
   { product: Product }
 >;
 
+@Injectable()
 export class CreateProductUsecase {
   constructor(
     private productsRepository: ProductsRepository,

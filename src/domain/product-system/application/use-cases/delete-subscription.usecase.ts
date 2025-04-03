@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/types/either';
 import { Subscription } from '../../entities/subscription.entity';
 import { SubscriptionsRepository } from '../repositories/subscriptions.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { Injectable } from '@nestjs/common';
 
 interface DeleteSubscriptionRequest {
   id: string;
@@ -12,6 +13,7 @@ type DeleteSubscriptionResponse = Either<
   { subscription: Subscription }
 >;
 
+@Injectable()
 export class DeleteSubscriptionUsecase {
   constructor(private subscriptionsRepository: SubscriptionsRepository) {}
 

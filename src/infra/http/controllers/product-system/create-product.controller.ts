@@ -10,9 +10,9 @@ const createProductBodySchema = z.object({
   description: z.string().optional(),
   title: z.string().min(8),
   courses: z.array(z.string()),
-  PriceInCents: z.coerce.number().int(),
+  priceInCents: z.coerce.number().int(),
   maxDatePromoPrice: z.string().date(),
-  PromoPriceInCents: z.coerce.number().int(),
+  promoPriceInCents: z.coerce.number().int(),
 });
 type CreateProductBodySchema = z.infer<typeof createProductBodySchema>;
 const createProductValidationPipe = new ZodValidationPipe(
@@ -29,20 +29,20 @@ export class createProductController {
     @Body(createProductValidationPipe)
     {
       courses,
-      PriceInCents,
+      priceInCents,
       title,
       description,
       maxDatePromoPrice,
-      PromoPriceInCents,
+      promoPriceInCents,
     }: CreateProductBodySchema,
   ) {
     const result = await this.createProduct.exec({
       courses,
-      PriceInCents,
+      priceInCents,
       title,
       description,
       maxDatePromoPrice: new Date(maxDatePromoPrice),
-      PromoPriceInCents,
+      promoPriceInCents,
     });
 
     if (result.isLeft()) {

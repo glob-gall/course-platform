@@ -16,8 +16,8 @@ import {
 } from './types/create-subscription';
 
 @Injectable()
-export class AssasPaymentHttpService {
-  private readonly logger = new Logger(AssasPaymentHttpService.name);
+export class AssasHttpService {
+  private readonly logger = new Logger(AssasHttpService.name);
   constructor(private readonly asaasHttpAccess: HttpService) {}
 
   async newCustomer({

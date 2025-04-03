@@ -3,6 +3,7 @@ import { Subscription } from '../../entities/subscription.entity';
 import { SubscriptionsRepository } from '../repositories/subscriptions.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import { PaymentCycle } from '../../entities/enum/payment_cycle';
+import { Injectable } from '@nestjs/common';
 
 interface EditSubscriptionRequest {
   id: string;
@@ -17,6 +18,7 @@ type EditSubscriptionResponse = Either<
   { subscription: Subscription }
 >;
 
+@Injectable()
 export class EditSubscriptionUsecase {
   constructor(private subscriptionsRepository: SubscriptionsRepository) {}
 

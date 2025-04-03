@@ -2,6 +2,7 @@ import { Either, left, right } from '@/core/types/either';
 import { Product } from '../../entities/product.entity';
 import { ProductsRepository } from '../repositories/products.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { Injectable } from '@nestjs/common';
 
 interface EditProductRequest {
   id: string;
@@ -14,6 +15,7 @@ interface EditProductRequest {
 
 type EditProductResponse = Either<ResourceNotFoundError, { product: Product }>;
 
+@Injectable()
 export class EditProductUsecase {
   constructor(private productsRepository: ProductsRepository) {}
 
