@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
 import { AssasPaymentService } from './asaas/assas-payment-.service';
 import { AssasHttpService } from './asaas/assas-http.service';
 import { PaymentService } from '@/domain/product-system/payment-service/payment.service';
+import { PrismaService } from '../database/prisma/prisma.service';
 
 @Module({
   imports: [
@@ -22,12 +23,13 @@ import { PaymentService } from '@/domain/product-system/payment-service/payment.
     }),
   ],
   providers: [
+    PrismaService,
     {
       provide: PaymentService,
       useClass: AssasPaymentService,
     },
     AssasHttpService,
   ],
-  exports: [AssasPaymentService],
+  exports: [PaymentService],
 })
 export class PaymentModule {}

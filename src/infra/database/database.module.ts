@@ -18,6 +18,12 @@ import { QuestionsRepository } from '@/domain/quizz-system/application/repositor
 import { PrismaQuestionsRepository } from './prisma/repositories/course-system/prisma-questions.repository';
 import { PrismaAnswersRepository } from './prisma/repositories/course-system/prisma-answers.repository';
 import { AnswersRepository } from '@/domain/quizz-system/application/repositories/answers.repository';
+import { ProductsRepository } from '@/domain/product-system/application/repositories/products.repository';
+import { PrismaProductsRepository } from './prisma/repositories/product-system/prisma-products.repository';
+import { PurchasesRepository } from '@/domain/product-system/application/repositories/purchases.repository';
+import { PrismaPurchasesRepository } from './prisma/repositories/product-system/prisma-purchases.repository';
+import { SubscriptionsRepository } from '@/domain/product-system/application/repositories/subscriptions.repository';
+import { PrismaSubscriptionsRepository } from './prisma/repositories/product-system/prisma-subscriptions.repository';
 
 @Module({
   providers: [
@@ -58,6 +64,18 @@ import { AnswersRepository } from '@/domain/quizz-system/application/repositorie
       provide: AnswersRepository,
       useClass: PrismaAnswersRepository,
     },
+    {
+      provide: ProductsRepository,
+      useClass: PrismaProductsRepository,
+    },
+    {
+      provide: PurchasesRepository,
+      useClass: PrismaPurchasesRepository,
+    },
+    {
+      provide: SubscriptionsRepository,
+      useClass: PrismaSubscriptionsRepository,
+    },
   ],
   exports: [
     PrismaService,
@@ -70,6 +88,9 @@ import { AnswersRepository } from '@/domain/quizz-system/application/repositorie
     QuizzesRepository,
     QuestionsRepository,
     AnswersRepository,
+    ProductsRepository,
+    PurchasesRepository,
+    SubscriptionsRepository,
   ],
 })
 export class DatabaseModule {}

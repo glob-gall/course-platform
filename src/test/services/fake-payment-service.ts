@@ -1,16 +1,19 @@
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
+import { right } from '@/core/types/either';
 import {
   CreateChargeParams,
+  CreateChargeResponse,
   CreateSubscriptionParams,
+  CreateSubscriptionResponse,
   CreateUserParams,
+  CreateUserResponse,
   PaymentService,
-} from '@/domain/product-system/payment-service/payment-service';
+} from '@/domain/product-system/payment-service/payment.service';
 
 type FakeUser = {
-  id: string;
+  id: UniqueEntityID;
   cpf: string;
   email: string;
-  name: string;
 };
 type FakeCharge = {
   userId: string;
@@ -29,16 +32,26 @@ export class FakePaymentService implements PaymentService {
   public charges: FakeCharge[] = [];
   public subscriptions: FakeSubscription[] = [];
 
-  async createUser({ cpf, email, name }: CreateUserParams): Promise<void> {
-    this.users.push({ cpf, email, id: new UniqueEntityID().toString(), name });
+  async createUser({
+    cpf,
+    email,
+  }: CreateUserParams): Promise<CreateUserResponse> {
+    this.users.push({ cpf, email, id: new UniqueEntityID() });
+
+    return right(null);
   }
 
   async createCharge({
-    userId,
     paymentType,
+    userId,
     value,
-  }: CreateChargeParams): Promise<void> {
-    this.charges.push({ paymentType, userId, value });
+  }: CreateChargeParams): Promise<CreateChargeResponse> {
+    this.charges.push({
+      paymentType,
+      userId,
+      value,
+    });
+    return right(null);
   }
 
   async createSubscription({
@@ -46,7 +59,13 @@ export class FakePaymentService implements PaymentService {
     cycle,
     paymentType,
     value,
-  }: CreateSubscriptionParams): Promise<void> {
-    this.subscriptions.push({ customerId, cycle, paymentType, value });
+  }: CreateSubscriptionParams): Promise<CreateSubscriptionResponse> {
+    this.subscriptions.push({
+      customerId,
+      cycle,
+      paymentType,
+      value,
+    });
+    return right(null);
   }
 }

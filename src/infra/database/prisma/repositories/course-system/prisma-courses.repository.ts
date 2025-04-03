@@ -63,4 +63,12 @@ export class PrismaCoursesRepository implements CoursesRepository {
 
     return courses.map(PrismaCourseMapper.toDomain);
   }
+
+  async findManyByIds(ids: string[]): Promise<Course[]> {
+    const courses = await this.prisma.course.findMany({
+      where: { id: { in: ids } },
+    });
+
+    return courses.map(PrismaCourseMapper.toDomain);
+  }
 }
