@@ -8,8 +8,8 @@ export interface PurchaseProps {
   userId: UniqueEntityID;
   products: UniqueEntityID[];
   type: PaymentType;
-  paymentstatus: PaymentStatus;
-  totalpriceInCents: number;
+  paymentStatus: PaymentStatus;
+  totalPriceInCents: number;
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -21,14 +21,21 @@ export class Purchase extends Entity<PurchaseProps> {
   public get products() {
     return this.props.products;
   }
-  public get paymentstatus() {
-    return this.props.paymentstatus;
+  public get paymentStatus() {
+    return this.props.paymentStatus;
   }
+
   public get type() {
     return this.props.type;
   }
-  public get totalpriceInCents() {
-    return this.props.totalpriceInCents;
+  public get totalPriceInCents() {
+    return this.props.totalPriceInCents;
+  }
+  public get createdAt() {
+    return this.props.createdAt;
+  }
+  public get updatedAt() {
+    return this.props.updatedAt;
   }
 
   touch() {

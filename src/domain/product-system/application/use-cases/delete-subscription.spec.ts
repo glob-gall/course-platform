@@ -14,9 +14,7 @@ describe('Delete Subscription Use Case', () => {
   });
 
   it('should be able to delete a Subscription', async () => {
-    const subscription = makeSubscription({
-      PriceInCents: 200,
-    });
+    const subscription = makeSubscription();
     subscriptionsRepository.items.push(subscription);
 
     const response = await sut.exec({

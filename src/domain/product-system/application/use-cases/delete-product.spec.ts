@@ -14,9 +14,7 @@ describe('Edit Product Use Case', () => {
   });
 
   it('should be able to delete a product', async () => {
-    const product = makeProduct({
-      PriceInCents: 200,
-    });
+    const product = makeProduct();
     productsRepository.items.push(product);
 
     const response = await sut.exec({

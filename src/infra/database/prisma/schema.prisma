@@ -19,6 +19,14 @@ enum UserRole {
   ADMIN
 }
 
+model AssasPaymentProfile {
+  id      String @id @default(uuid())
+  cpf     String @unique
+  asaasId String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String @unique
+}
+
 model User {
   id       String @id @default(uuid())
   name     String
@@ -28,8 +36,12 @@ model User {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  role    UserRole     @default(STUDENT)
-  courses UserCourse[]
+  role          UserRole           @default(STUDENT)
+  courses       UserCourse[]
+  subscriptions UserSubscription[]
+  Purchase      Purchase[]
+
+  assasPaymentProfile AssasPaymentProfile?
 }
 
 model UserCourse {
@@ -70,7 +82,9 @@ model Course {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  sections Section[]
+  products      CourseProduct[]
+  subscriptions SubscriptionCourse[]
+  sections      Section[]
 }
 
 model Section {
@@ -163,4 +177,107 @@ model Answer {
 
   Question   Question @relation(fields: [questionId], references: [id])
   questionId String
+}
+
+model Product {
+  id                String    @id @default(uuid())
+  title             String
+  description       String?
+  priceInCents      Int
+  promoPriceInCents Int?
+  maxDatePromoPrice DateTime?
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  purchases PurchaseProduct[]
+  courses   CourseProduct[]
+}
+
+model CourseProduct {
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  course    Course  @relation(fields: [courseId], references: [id])
+  courseId  String
+
+  @@id([productId, courseId])
+}
+
+model Purchase {
+  id                String        @id @default(uuid())
+  totalPriceInCents Int
+  paymentType       PaymentType
+  paymentStatus     PaymentStatus
+  createdAt         DateTime      @default(now()) @map("created_at")
+
+  user            User              @relation(fields: [userId], references: [id])
+  purchaseProduct PurchaseProduct[]
+  userId          String
+}
+
+model PurchaseProduct {
+  purchase   Purchase @relation(fields: [purchaseId], references: [id])
+  purchaseId String
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  String
+
+  @@id([productId, purchaseId])
+}
+
+model Subscription {
+  id           String       @id @default(uuid())
+  title        String
+  description  String?
+  priceInCents Int
+  cycle        PaymentCycle
+  createdAt    DateTime     @default(now()) @map("created_at")
+
+  courses SubscriptionCourse[]
+  users   UserSubscription[]
+}
+
+model SubscriptionCourse {
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String
+  course         Course       @relation(fields: [courseId], references: [id])
+  courseId       String
+
+  @@id([subscriptionId, courseId])
+}
+
+model UserSubscription {
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String
+  user           User         @relation(fields: [userId], references: [id])
+  userId         String
+
+  @@id([userId, subscriptionId])
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PENDING
+}
+
+enum PaymentType {
+  BOLETO
+  CREDIT_CARD
+  PIX
+  UNDEFINED
+}
+
+enum PaymentStatus {
+  ACTIVE
+  CANCELED
+  PENDING
+}
+
+enum PaymentCycle {
+  WEEKLY //semana
+  BIWEEKLY // 2 semanas
+  MONTHLY // 1 mes
+  QUARTERLY // 4 meses
+  SEMIANNUALLY // 6 meses
+  YEARLY // 1 ano
 }

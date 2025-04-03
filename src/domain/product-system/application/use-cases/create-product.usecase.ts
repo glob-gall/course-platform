@@ -9,9 +9,9 @@ interface CreateProductRequest {
   title: string;
   description?: string;
   courses: string[];
-  PriceInCents: number;
-  PromoPriceInCents?: number;
-  maxDatePromoPrice?: Date;
+  priceInCents: number;
+  promoPriceInCents?: number | null;
+  maxDatePromoPrice?: Date | null;
 }
 
 type CreateProductResponse = Either<
@@ -28,9 +28,9 @@ export class CreateProductUsecase {
   async exec({
     title,
     description,
-    PriceInCents,
+    priceInCents,
     courses,
-    PromoPriceInCents,
+    promoPriceInCents,
     maxDatePromoPrice,
   }: CreateProductRequest): Promise<CreateProductResponse> {
     const findedCourses = await this.coursesRepository.findManyByIds(courses);
@@ -41,8 +41,8 @@ export class CreateProductUsecase {
       title,
       description,
       courses: courses.map((courseId) => new UniqueEntityID(courseId)),
-      PriceInCents,
-      PromoPriceInCents,
+      priceInCents,
+      promoPriceInCents,
       maxDatePromoPrice,
     });
 

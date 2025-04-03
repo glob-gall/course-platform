@@ -5,9 +5,9 @@ import { Optional } from '@/core/types/optional';
 export interface ProductProps {
   title: string;
   description?: string;
-  PriceInCents: number;
-  PromoPriceInCents?: number;
-  maxDatePromoPrice?: Date;
+  priceInCents: number;
+  promoPriceInCents?: number | null;
+  maxDatePromoPrice?: Date | null;
 
   courses: UniqueEntityID[];
 
@@ -25,33 +25,39 @@ export class Product extends Entity<ProductProps> {
   public set description(description: string | undefined) {
     this.props.description = description;
   }
-  public set PriceInCents(PriceInCents: number) {
-    this.props.PriceInCents = PriceInCents;
+  public set priceInCents(priceInCents: number) {
+    this.props.priceInCents = priceInCents;
   }
   public set courses(courses: UniqueEntityID[]) {
     this.props.courses = courses;
   }
-  public set PromoPriceInCents(PromoPriceInCents: number | undefined) {
-    this.props.PromoPriceInCents = PromoPriceInCents;
+  public set promoPriceInCents(PromoPriceInCents: number | undefined | null) {
+    this.props.promoPriceInCents = PromoPriceInCents;
   }
-  public set maxDatePromoPrice(maxDatePromoPrice: Date | undefined) {
+  public set maxDatePromoPrice(maxDatePromoPrice: Date | undefined | null) {
     this.props.maxDatePromoPrice = maxDatePromoPrice;
   }
 
   public get description() {
     return this.props.description;
   }
-  public get PriceInCents() {
-    return this.props.PriceInCents;
+  public get priceInCents() {
+    return this.props.priceInCents;
   }
-  public get PromoPriceInCents() {
-    return this.props.PromoPriceInCents;
+  public get promoPriceInCents() {
+    return this.props.promoPriceInCents;
   }
   public get maxDatePromoPrice() {
     return this.props.maxDatePromoPrice;
   }
   public get courses() {
     return this.props.courses;
+  }
+  public get createdAt() {
+    return this.props.createdAt;
+  }
+  public get updatedAt() {
+    return this.props.updatedAt;
   }
   touch() {
     this.props.updatedAt = new Date();

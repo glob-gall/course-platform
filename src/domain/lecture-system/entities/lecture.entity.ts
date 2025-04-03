@@ -63,9 +63,6 @@ export class Lecture extends Entity<LectureProps> {
     this.touch();
   }
 
-
-
-
   touch() {
     this.props.updatedAt = new Date();
   }

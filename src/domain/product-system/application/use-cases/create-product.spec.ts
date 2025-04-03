@@ -20,10 +20,10 @@ describe('Create Product Use Case', () => {
 
     const response = await sut.exec({
       courses: [],
-      PriceInCents: product.PriceInCents,
+      priceInCents: product.priceInCents,
       title: product.title,
       description: product.description,
-      PromoPriceInCents: product.PromoPriceInCents,
+      promoPriceInCents: product.promoPriceInCents,
       maxDatePromoPrice: product.maxDatePromoPrice,
     });
 
@@ -32,7 +32,7 @@ describe('Create Product Use Case', () => {
     expect(productsRepository.items[0]).toEqual(
       expect.objectContaining({
         title: product.title,
-        PriceInCents: product.PriceInCents,
+        priceInCents: product.priceInCents,
       }),
     );
   });

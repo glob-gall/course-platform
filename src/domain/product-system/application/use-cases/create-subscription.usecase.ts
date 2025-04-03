@@ -8,10 +8,10 @@ import { PaymentCycle } from '../../entities/enum/payment_cycle';
 
 interface CreateSubscriptionRequest {
   title: string;
-  description?: string;
+  description?: string | null;
   courses: string[];
   cycle: PaymentCycle;
-  PriceInCents: number;
+  priceInCents: number;
 }
 
 type CreateSubscriptionResponse = Either<
@@ -26,7 +26,7 @@ export class CreateSubscriptionUsecase {
   ) {}
 
   async exec({
-    PriceInCents,
+    priceInCents,
     courses,
     cycle,
     title,
@@ -38,7 +38,7 @@ export class CreateSubscriptionUsecase {
 
     const subscription = Subscription.create({
       cycle,
-      PriceInCents,
+      priceInCents,
       description,
       title,
       courses: courses.map((courseId) => new UniqueEntityID(courseId)),

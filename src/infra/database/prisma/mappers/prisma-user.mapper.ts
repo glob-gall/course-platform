@@ -18,7 +18,9 @@ export class PrismaUserMapper {
   }
 
   static toDomain(raw: PrismaUser): User {
-    const role = Object.values(UserRole).includes(raw.role as UserRole) ? (raw.role as UserRole) : UserRole.Student;
+    const role = Object.values(UserRole).includes(raw.role as UserRole)
+      ? (raw.role as UserRole)
+      : UserRole.Student;
 
     const user = User.create(
       {

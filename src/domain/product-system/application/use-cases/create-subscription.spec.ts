@@ -24,7 +24,7 @@ describe('Create Subscription Use Case', () => {
     const response = await sut.exec({
       courses: [],
       cycle: subscription.cycle,
-      PriceInCents: subscription.PriceInCents,
+      priceInCents: subscription.priceInCents,
       title: subscription.title,
       description: subscription.description,
     });
@@ -34,7 +34,7 @@ describe('Create Subscription Use Case', () => {
     expect(subscriptionsRepository.items[0]).toEqual(
       expect.objectContaining({
         title: subscription.title,
-        PriceInCents: subscription.PriceInCents,
+        priceInCents: subscription.priceInCents,
       }),
     );
   });

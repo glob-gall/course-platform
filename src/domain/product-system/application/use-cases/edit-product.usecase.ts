@@ -7,8 +7,8 @@ interface EditProductRequest {
   id: string;
   title: string;
   description?: string;
-  PriceInCents: number;
-  PromoPriceInCents?: number;
+  priceInCents: number;
+  promoPriceInCents?: number;
   maxDatePromoPrice?: Date;
 }
 
@@ -21,8 +21,8 @@ export class EditProductUsecase {
     id,
     title,
     description,
-    PriceInCents,
-    PromoPriceInCents,
+    priceInCents,
+    promoPriceInCents,
     maxDatePromoPrice,
   }: EditProductRequest): Promise<EditProductResponse> {
     const product = await this.productsRepository.findById(id);
@@ -30,8 +30,8 @@ export class EditProductUsecase {
 
     product.title = title;
     product.description = description;
-    product.PriceInCents = PriceInCents;
-    product.PromoPriceInCents = PromoPriceInCents;
+    product.priceInCents = priceInCents;
+    product.promoPriceInCents = promoPriceInCents;
     product.maxDatePromoPrice = maxDatePromoPrice;
 
     await this.productsRepository.save(product);

@@ -15,13 +15,13 @@ describe('Edit Subscription Use Case', () => {
 
   it('should be able to edit a subscription', async () => {
     const subscription = makeSubscription({
-      PriceInCents: 200,
+      priceInCents: 200,
     });
     subscriptionsRepository.items.push(subscription);
 
     const response = await sut.exec({
       id: subscription.id.toString(),
-      PriceInCents: 100,
+      priceInCents: 100,
       title: 'title-changed',
       cycle: 'MONTHLY',
     });
@@ -31,7 +31,7 @@ describe('Edit Subscription Use Case', () => {
     expect(subscriptionsRepository.items[0]).toEqual(
       expect.objectContaining({
         title: 'title-changed',
-        PriceInCents: 100,
+        priceInCents: 100,
       }),
     );
   });
@@ -39,7 +39,7 @@ describe('Edit Subscription Use Case', () => {
   it('should not able to edit a subscription that do not exists', async () => {
     const response = await sut.exec({
       id: 'not-existenst-id',
-      PriceInCents: 100,
+      priceInCents: 100,
       title: 'title-changed',
       cycle: 'BIWEEKLY',
     });

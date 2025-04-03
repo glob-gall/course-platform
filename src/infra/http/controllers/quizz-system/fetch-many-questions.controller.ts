@@ -21,7 +21,7 @@ export class fetchManyQuestionsController {
       });
     }
     return {
-      questions: result.value.questions.map(QuestionPresenter.toHTTP)
-    }
+      questions: result.value.questions.map(QuestionPresenter.toHTTP),
+    };
   }
 }

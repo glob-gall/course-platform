@@ -9,7 +9,7 @@ interface EditSubscriptionRequest {
   title: string;
   description?: string;
   cycle: PaymentCycle;
-  PriceInCents: number;
+  priceInCents: number;
 }
 
 type EditSubscriptionResponse = Either<
@@ -22,7 +22,7 @@ export class EditSubscriptionUsecase {
 
   async exec({
     id,
-    PriceInCents,
+    priceInCents,
     cycle,
     title,
     description,
@@ -33,7 +33,7 @@ export class EditSubscriptionUsecase {
     subscription.title = title;
     subscription.description = description;
     subscription.cycle = cycle;
-    subscription.PriceInCents = PriceInCents;
+    subscription.priceInCents = priceInCents;
 
     await this.subscriptionsRepository.save(subscription);
     return right({ subscription });

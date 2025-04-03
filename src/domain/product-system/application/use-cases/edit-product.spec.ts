@@ -15,13 +15,13 @@ describe('Edit Product Use Case', () => {
 
   it('should be able to edit a product', async () => {
     const product = makeProduct({
-      PriceInCents: 200,
+      priceInCents: 200,
     });
     productsRepository.items.push(product);
 
     const response = await sut.exec({
       id: product.id.toString(),
-      PriceInCents: 100,
+      priceInCents: 100,
       title: 'title-changed',
     });
 
@@ -30,7 +30,7 @@ describe('Edit Product Use Case', () => {
     expect(productsRepository.items[0]).toEqual(
       expect.objectContaining({
         title: 'title-changed',
-        PriceInCents: 100,
+        priceInCents: 100,
       }),
     );
   });
@@ -38,7 +38,7 @@ describe('Edit Product Use Case', () => {
   it('should not able to edit a product that do not exists', async () => {
     const response = await sut.exec({
       id: 'not-existenst-id',
-      PriceInCents: 100,
+      priceInCents: 100,
       title: 'title-changed',
     });
 

@@ -15,7 +15,7 @@ export function makeProduct(
       title: faker.word.words(4),
       courses: [],
       description: faker.lorem.text(),
-      PriceInCents: faker.number.int({ min: 10, max: 5000 }),
+      priceInCents: faker.number.int({ min: 10, max: 5000 }),
       ...override,
     },
     id,

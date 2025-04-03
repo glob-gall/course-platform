@@ -6,9 +6,9 @@ import { PaymentCycle } from './enum/payment_cycle';
 export interface SubscriptionProps {
   courses: UniqueEntityID[];
   title: string;
-  description?: string;
+  description?: string | null;
   cycle: PaymentCycle;
-  PriceInCents: number;
+  priceInCents: number;
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -25,15 +25,15 @@ export class Subscription extends Entity<SubscriptionProps> {
   public get description() {
     return this.props.description;
   }
-  public set description(description: string | undefined) {
+  public set description(description: string | undefined | null) {
     this.props.description = description;
   }
 
-  public get PriceInCents() {
-    return this.props.PriceInCents;
+  public get priceInCents() {
+    return this.props.priceInCents;
   }
-  public set PriceInCents(PriceInCents: number) {
-    this.props.PriceInCents = PriceInCents;
+  public set priceInCents(priceInCents: number) {
+    this.props.priceInCents = priceInCents;
   }
 
   public get cycle() {
@@ -41,6 +41,13 @@ export class Subscription extends Entity<SubscriptionProps> {
   }
   public set cycle(cycle: PaymentCycle) {
     this.props.cycle = cycle;
+  }
+
+  public get createdAt() {
+    return this.props.createdAt;
+  }
+  public get updatedAt() {
+    return this.props.updatedAt;
   }
 
   touch() {

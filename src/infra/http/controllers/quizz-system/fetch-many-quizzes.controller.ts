@@ -21,7 +21,7 @@ export class fetchManyQuizzesController {
       });
     }
     return {
-      quizzes: result.value.quizzes.map(QuizzPresenter.toHTTP)
-    }
+      quizzes: result.value.quizzes.map(QuizzPresenter.toHTTP),
+    };
   }
 }
