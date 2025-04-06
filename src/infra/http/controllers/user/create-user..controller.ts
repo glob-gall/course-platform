@@ -26,7 +26,7 @@ export class createUserController {
     });
 
     if (result.isLeft()) {
-      const error = result.value
+      const error = result.value;
 
       switch (error.constructor) {
         case UserAlreadyExistsError:
@@ -34,11 +34,12 @@ export class createUserController {
             code: HttpStatus.CONFLICT,
             message: 'Email já cadastrado.',
           });
-    
+
         default:
           throw new HttpError({
             code: HttpStatus.INTERNAL_SERVER_ERROR,
-            message: 'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
+            message:
+              'Oops! um erro inesperado aconteceu, por favor entre em contato com a nossa equipe',
           });
       }
     }

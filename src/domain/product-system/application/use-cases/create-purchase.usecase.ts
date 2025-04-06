@@ -14,7 +14,6 @@ interface CreatePurchaseRequest {
   products: string[];
   type: PaymentType;
   userId: string;
-  userCpf?: string;
 }
 
 type CreatePurchaseResponse = Either<

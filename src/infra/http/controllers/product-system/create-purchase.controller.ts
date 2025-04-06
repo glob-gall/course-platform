@@ -10,7 +10,6 @@ const createPurchaseBodySchema = z.object({
   products: z.array(z.string()),
   type: z.enum(['BOLETO', 'CREDIT_CARD', 'PIX', 'UNDEFINED']),
   userId: z.string(),
-  userCpf: z.string(),
 });
 type CreatePurchaseBodySchema = z.infer<typeof createPurchaseBodySchema>;
 const createPurchaseValidationPipe = new ZodValidationPipe(
@@ -25,13 +24,12 @@ export class createPurchaseController {
   @Roles(UserRole.CourseOwner, UserRole.Admin)
   async post(
     @Body(createPurchaseValidationPipe)
-    { products, type, userCpf, userId }: CreatePurchaseBodySchema,
+    { products, type, userId }: CreatePurchaseBodySchema,
   ) {
     const result = await this.createPurchase.exec({
       products,
       type,
       userId,
-      userCpf,
     });
 
     if (result.isLeft()) {

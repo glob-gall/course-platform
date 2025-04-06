@@ -6,6 +6,8 @@ import { AssasPaymentService } from './asaas/assas-payment-.service';
 import { AssasHttpService } from './asaas/assas-http.service';
 import { PaymentService } from '@/domain/product-system/payment-service/payment.service';
 import { PrismaService } from '../database/prisma/prisma.service';
+import { Encrypter } from '@/domain/user-system/application/cryptography/encrypter';
+import { JwtEncrypter } from '../cryptography/jwt-encrypter';
 
 @Module({
   imports: [
@@ -24,6 +26,10 @@ import { PrismaService } from '../database/prisma/prisma.service';
   ],
   providers: [
     PrismaService,
+    {
+      provide: Encrypter,
+      useClass: JwtEncrypter,
+    },
     {
       provide: PaymentService,
       useClass: AssasPaymentService,

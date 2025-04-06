@@ -4,28 +4,46 @@ import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import {
   CreateChargeParams,
   CreateChargeResponse,
+  CreatePaymentProfileParams,
+  CreatePaymentProfileResponse,
   CreateSubscriptionParams,
   CreateSubscriptionResponse,
-  CreateUserParams,
-  CreateUserResponse,
+  FindPaymentProfileResponse,
   PaymentService,
 } from '@/domain/product-system/payment-service/payment.service';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { AssasHttpService } from './assas-http.service';
 import { PaymentProfileAlreadyExistsError } from '@/domain/product-system/payment-service/error/payment-profile-already-exists.error';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
+import { Encrypter } from '@/domain/user-system/application/cryptography/encrypter';
 
 @Injectable()
 export class AssasPaymentService implements PaymentService {
   constructor(
     private prisma: PrismaService,
     private readonly asaasHttpAccess: AssasHttpService,
+    private encrypter: Encrypter,
   ) {}
+  async findPaymentProfile(
+    userId: string,
+  ): Promise<FindPaymentProfileResponse> {
+    const profile = await this.prisma.assasPaymentProfile.findUnique({
+      where: { userId },
+    });
+    if (!profile) return left(null);
 
-  async createUser({
+    const profileToken = await this.encrypter.encrypt({
+      cpf: profile.cpf,
+      asaasId: profile.asaasId,
+      userId: profile.userId,
+    });
+    return right({ profileToken });
+  }
+
+  async createPaymentProfile({
     cpf,
     email,
-  }: CreateUserParams): Promise<CreateUserResponse> {
+  }: CreatePaymentProfileParams): Promise<CreatePaymentProfileResponse> {
     const paymentProfile = await this.prisma.assasPaymentProfile.findUnique({
       where: { cpf },
     });
@@ -40,7 +58,7 @@ export class AssasPaymentService implements PaymentService {
       name: user.name,
     });
 
-    this.prisma.assasPaymentProfile.create({
+    await this.prisma.assasPaymentProfile.create({
       data: {
         id: new UniqueEntityID().toString(),
         asaasId: newAssasUser.id,
@@ -49,7 +67,12 @@ export class AssasPaymentService implements PaymentService {
       },
     });
 
-    return right(null);
+    const profileToken = await this.encrypter.encrypt({
+      cpf,
+      asaasId: newAssasUser.id,
+      userId: user.id,
+    });
+    return right({ profileToken });
   }
 
   async createCharge({

@@ -4,7 +4,13 @@ import { PaymentCycle } from './enum/payment_cycle';
 import { PaymentProfileAlreadyExistsError } from './error/payment-profile-already-exists.error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 
-export interface CreateUserParams {
+export interface Profile {
+  cpf: string;
+  asaasId: string;
+  userId: string;
+}
+
+export interface CreatePaymentProfileParams {
   email: string;
   cpf: string;
 }
@@ -22,17 +28,28 @@ export interface CreateSubscriptionParams {
   cycle: PaymentCycle;
 }
 
-export type CreateUserResponse = Either<
+export type FindPaymentProfileResponse = Either<null, { profileToken: string }>;
+export type CreatePaymentProfileResponse = Either<
   PaymentProfileAlreadyExistsError | ResourceNotFoundError,
-  null
+  { profileToken: string }
 >;
+
 export type CreateChargeResponse = Either<ResourceNotFoundError, null>;
 export type CreateSubscriptionResponse = Either<ResourceNotFoundError, null>;
+
 export abstract class PaymentService {
-  abstract createUser(params: CreateUserParams): Promise<CreateUserResponse>;
+  abstract findPaymentProfile(
+    userId: string,
+  ): Promise<FindPaymentProfileResponse>;
+
+  abstract createPaymentProfile(
+    params: CreatePaymentProfileParams,
+  ): Promise<CreatePaymentProfileResponse>;
+
   abstract createCharge(
     params: CreateChargeParams,
   ): Promise<CreateChargeResponse>;
+
   abstract createSubscription(
     params: CreateSubscriptionParams,
   ): Promise<CreateSubscriptionResponse>;

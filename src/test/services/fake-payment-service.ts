@@ -1,19 +1,23 @@
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
-import { right } from '@/core/types/either';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { left, right } from '@/core/types/either';
 import {
   CreateChargeParams,
   CreateChargeResponse,
+  CreatePaymentProfileParams,
+  CreatePaymentProfileResponse,
   CreateSubscriptionParams,
   CreateSubscriptionResponse,
-  CreateUserParams,
-  CreateUserResponse,
+  FindPaymentProfileResponse,
   PaymentService,
 } from '@/domain/product-system/payment-service/payment.service';
 
-type FakeUser = {
+type PaymentProfile = {
   id: UniqueEntityID;
   cpf: string;
   email: string;
+  asaasId?: string;
+  userId: string;
 };
 type FakeCharge = {
   userId: string;
@@ -28,17 +32,28 @@ type FakeSubscription = {
 };
 
 export class FakePaymentService implements PaymentService {
-  public users: FakeUser[] = [];
+  public profiles: PaymentProfile[] = [];
   public charges: FakeCharge[] = [];
   public subscriptions: FakeSubscription[] = [];
 
-  async createUser({
+  async findPaymentProfile(
+    userId: string,
+  ): Promise<FindPaymentProfileResponse> {
+    const profile = this.profiles.find((p) => p.userId === userId);
+    if (!profile) left(new ResourceNotFoundError());
+    return right({ profileToken: userId });
+  }
+
+  async createPaymentProfile({
     cpf,
     email,
-  }: CreateUserParams): Promise<CreateUserResponse> {
-    this.users.push({ cpf, email, id: new UniqueEntityID() });
+  }: CreatePaymentProfileParams): Promise<CreatePaymentProfileResponse> {
+    const id = new UniqueEntityID();
+    this.profiles.push({ cpf, email, id, userId: '' });
 
-    return right(null);
+    return right({
+      profileToken: id.toString(),
+    });
   }
 
   async createCharge({

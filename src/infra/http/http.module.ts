@@ -51,6 +51,9 @@ import { deleteSubscriptionController } from './controllers/product-system/delet
 import { fetchManyPurchasesController } from './controllers/product-system/fetch-many-purchases.controller';
 import { fetchManyProductsController } from './controllers/product-system/fetch-many-products.controller';
 import { fetchManySubscriptionsController } from './controllers/product-system/fetch-many-subscriptions.controller';
+import { GetMyPaymentProfileController } from './controllers/user/get-my-payment-profile.controller';
+import { GetUserPaymentProfileController } from './controllers/user/get-user-payment-profile.controller';
+import { CreateMyPaymentProfileController } from './controllers/user/create-my-payment-profile.controller';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, AuthModule, PaymentModule],
@@ -107,6 +110,9 @@ import { fetchManySubscriptionsController } from './controllers/product-system/f
     fetchManyProductsController,
     fetchManyPurchasesController,
     fetchManySubscriptionsController,
+    GetMyPaymentProfileController,
+    GetUserPaymentProfileController,
+    CreateMyPaymentProfileController,
   ],
 })
 export class HttpModule {}

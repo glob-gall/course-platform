@@ -15,6 +15,8 @@ const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
   user: z.object({
     role: z.nativeEnum(UserRole),
+    name: z.string(),
+    email: z.string(),
   }),
 });
 
