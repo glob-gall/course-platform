@@ -25,6 +25,7 @@ export class CreateCourseUsecase {
     const course = Course.create({
       description,
       title,
+      sections: [],
       slug: slug ? Slug.create(slug) : Slug.createFromText(title),
     });
     const courseWithSameSlug = await this.coursesRepository.findBySlug(

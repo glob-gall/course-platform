@@ -30,7 +30,6 @@ export class PrismaAnswerMapper {
         videoURL: raw.videoURL,
         externalResource: raw.externalResource,
         imageURL: raw.imageURL,
-
       },
       new UniqueEntityID(raw.id),
     );

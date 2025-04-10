@@ -17,6 +17,7 @@ export function makeCourse(
     {
       description: faker.lorem.text(),
       title,
+      sections: [],
       slug: Slug.createFromText(title),
       ...override,
     },

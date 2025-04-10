@@ -4,10 +4,6 @@ import { UsersRepository } from '@/domain/user-system/application/repositories/u
 import { PrismaUsersRepository } from './prisma/repositories/user-system/prisma-users.repository';
 import { CoursesRepository } from '@/domain/course-platform/application/repositories/courses.repository';
 import { PrismaCoursesRepository } from './prisma/repositories/course-system/prisma-courses.repository';
-import { PrismaSectionQuizzesRepository } from './prisma/repositories/course-system/prisma-section-quizzes.repository';
-import { SectionQuizzesRepository } from '@/domain/course-platform/application/repositories/section-quizzes.repository';
-import { SectionLecturesRepository } from '@/domain/course-platform/application/repositories/section-lectures.repository';
-import { PrismaSectionLecturesRepository } from './prisma/repositories/course-system/prisma-section-lectures.repository';
 import { SectionsRepository } from '@/domain/course-platform/application/repositories/sections.repository';
 import { PrismaSectionsRepository } from './prisma/repositories/course-system/prisma-sections.repository';
 import { PrismaLecturesRepository } from './prisma/repositories/course-system/prisma-lectures.repository';
@@ -48,14 +44,7 @@ import { PrismaSubscriptionsRepository } from './prisma/repositories/product-sys
       provide: SectionsRepository,
       useClass: PrismaSectionsRepository,
     },
-    {
-      provide: SectionQuizzesRepository,
-      useClass: PrismaSectionQuizzesRepository,
-    },
-    {
-      provide: SectionLecturesRepository,
-      useClass: PrismaSectionLecturesRepository,
-    },
+
     {
       provide: QuestionsRepository,
       useClass: PrismaQuestionsRepository,
@@ -82,8 +71,6 @@ import { PrismaSubscriptionsRepository } from './prisma/repositories/product-sys
     UsersRepository,
     CoursesRepository,
     SectionsRepository,
-    SectionQuizzesRepository,
-    SectionLecturesRepository,
     LecturesRepository,
     QuizzesRepository,
     QuestionsRepository,

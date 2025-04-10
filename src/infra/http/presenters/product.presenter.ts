@@ -6,7 +6,6 @@ export class ProductPresenter {
       id: product.id.toString(),
       title: product.title,
       description: product.description,
-      courses: product.courses,
       priceInCents: product.priceInCents,
       promoPriceInCents: product.promoPriceInCents,
       maxDatePromoPrice: product.maxDatePromoPrice,

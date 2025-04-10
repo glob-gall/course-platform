@@ -9,17 +9,16 @@ export class PrismaAnswersRepository implements AnswersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async createMany(answers: Answer[]): Promise<void> {
-    const prismaAnswers = answers.map(PrismaAnswerMapper.toPrisma)
+    const prismaAnswers = answers.map(PrismaAnswerMapper.toPrisma);
     await this.prisma.answer.createMany({
-      data: prismaAnswers
-    })
+      data: prismaAnswers,
+    });
   }
   async deleteManyByQuestionId(questionId: string): Promise<void> {
     await this.prisma.answer.deleteMany({
-      where:{
-        questionId
-      }
-    })
+      where: {
+        questionId,
+      },
+    });
   }
-
 }

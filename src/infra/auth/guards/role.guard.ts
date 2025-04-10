@@ -11,7 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { z } from 'zod';
 import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
 
-const tokenPayloadSchema = z.object({
+export const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
   user: z.object({
     role: z.nativeEnum(UserRole),
@@ -45,6 +45,8 @@ export class RolesGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const token = request.cookies['user-token'];
+    console.log({ token });
+
     if (!token) throw new UnauthorizedException();
 
     try {

@@ -24,6 +24,7 @@ export class CreateSectionUsecase {
     const section = Section.create({
       description,
       courseId: new UniqueEntityID(courseId),
+      items: [],
       title,
     });
     await this.sectionsRepository.create(section);

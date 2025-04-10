@@ -1,7 +1,6 @@
 import { Either, left, right } from '@/core/types/either';
 import { Product } from '../../entities/product.entity';
 import { ProductsRepository } from '../repositories/products.repository';
-import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { CoursesRepository } from '@/domain/course-platform/application/repositories/courses.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import { Injectable } from '@nestjs/common';
@@ -42,7 +41,7 @@ export class CreateProductUsecase {
     const product = Product.create({
       title,
       description,
-      courses: courses.map((courseId) => new UniqueEntityID(courseId)),
+      courses: findedCourses,
       priceInCents,
       promoPriceInCents,
       maxDatePromoPrice,

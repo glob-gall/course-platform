@@ -1,6 +1,7 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
+import { Course } from '@/domain/course-platform/entities/course.entity';
 
 export interface ProductProps {
   title: string;
@@ -9,7 +10,7 @@ export interface ProductProps {
   promoPriceInCents?: number | null;
   maxDatePromoPrice?: Date | null;
 
-  courses: UniqueEntityID[];
+  courses: Course[];
 
   createdAt: Date;
   updatedAt?: Date | null;
@@ -28,9 +29,7 @@ export class Product extends Entity<ProductProps> {
   public set priceInCents(priceInCents: number) {
     this.props.priceInCents = priceInCents;
   }
-  public set courses(courses: UniqueEntityID[]) {
-    this.props.courses = courses;
-  }
+
   public set promoPriceInCents(PromoPriceInCents: number | undefined | null) {
     this.props.promoPriceInCents = PromoPriceInCents;
   }
@@ -50,9 +49,14 @@ export class Product extends Entity<ProductProps> {
   public get maxDatePromoPrice() {
     return this.props.maxDatePromoPrice;
   }
+
+  public set courses(courses: Course[]) {
+    this.props.courses = courses;
+  }
   public get courses() {
     return this.props.courses;
   }
+
   public get createdAt() {
     return this.props.createdAt;
   }

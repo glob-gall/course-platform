@@ -20,14 +20,10 @@ import { fetchManySectionsController } from './controllers/course-platform/fetch
 import { FetchManySectionsUsecase } from '@/domain/course-platform/application/use-cases/fetch-many-sections.usecase';
 import { editSectionController } from './controllers/course-platform/edit-section.controller';
 import { EditSectionUsecase } from '@/domain/course-platform/application/use-cases/edit-section.usecase';
-import { CreateSectionLectureUsecase } from '@/domain/course-platform/application/use-cases/create-section-lecture.usecase';
-import { createSectionLectureController } from './controllers/course-platform/create-section-lecture.controller';
 import { fetchManyLecturesController } from './controllers/lecture-system/fetch-many-lectures.controller';
 import { FetchManyLectureUsecase } from '@/domain/lecture-system/application/use-cases/fetch-many-lectures.usecase';
 import { FetchManyQuizzesUsecase } from '@/domain/quizz-system/application/use-cases/fetch-many-quizz.usecase';
 import { fetchManyQuizzesController } from './controllers/quizz-system/fetch-many-quizzes.controller';
-import { createSectionQuizzController } from './controllers/course-platform/create-section-quizz.controller';
-import { CreateSectionQuizzUsecase } from '@/domain/course-platform/application/use-cases/create-section-quizz.usecase';
 import { fetchManyQuestionsController } from './controllers/quizz-system/fetch-many-questions.controller';
 import { FetchManyQuestionsUsecase } from '@/domain/quizz-system/application/use-cases/fetch-many-question.usecase';
 import { createQuestionController } from './controllers/quizz-system/create-question.controller';
@@ -54,6 +50,8 @@ import { fetchManySubscriptionsController } from './controllers/product-system/f
 import { GetMyPaymentProfileController } from './controllers/user/get-my-payment-profile.controller';
 import { GetUserPaymentProfileController } from './controllers/user/get-user-payment-profile.controller';
 import { CreateMyPaymentProfileController } from './controllers/user/create-my-payment-profile.controller';
+import { getProductDetailsController } from './controllers/product-system/get-product-details.controller';
+import { GetProductDetailsUsecase } from '@/domain/product-system/application/use-cases/get-product-details.usecase';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, AuthModule, PaymentModule],
@@ -66,10 +64,8 @@ import { CreateMyPaymentProfileController } from './controllers/user/create-my-p
     CreateSectionUsecase,
     FetchManySectionsUsecase,
     EditSectionUsecase,
-    CreateSectionLectureUsecase,
     FetchManyLectureUsecase,
     FetchManyQuizzesUsecase,
-    CreateSectionQuizzUsecase,
     FetchManyQuestionsUsecase,
     CreateQuestionUsecase,
 
@@ -84,6 +80,7 @@ import { CreateMyPaymentProfileController } from './controllers/user/create-my-p
     FetchManyProductsUsecase,
     FetchManyPurchasesUsecase,
     FetchManySubscriptionsUsecase,
+    GetProductDetailsUsecase,
   ],
   controllers: [
     createUserController,
@@ -94,10 +91,8 @@ import { CreateMyPaymentProfileController } from './controllers/user/create-my-p
     createSectionController,
     fetchManySectionsController,
     editSectionController,
-    createSectionLectureController,
     fetchManyLecturesController,
     fetchManyQuizzesController,
-    createSectionQuizzController,
     fetchManyQuestionsController,
     createQuestionController,
 
@@ -113,6 +108,7 @@ import { CreateMyPaymentProfileController } from './controllers/user/create-my-p
     GetMyPaymentProfileController,
     GetUserPaymentProfileController,
     CreateMyPaymentProfileController,
+    getProductDetailsController,
   ],
 })
 export class HttpModule {}

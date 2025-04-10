@@ -24,6 +24,6 @@ export class InMemoryQuizzesRepository implements QuizzesRepository {
   }
 
   async findMany(): Promise<Quizz[]> {
-    return this.items
+    return this.items;
   }
 }

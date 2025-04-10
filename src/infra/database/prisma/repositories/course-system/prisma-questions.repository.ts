@@ -3,16 +3,17 @@ import { Injectable } from '@nestjs/common';
 import { Question } from '@/domain/quizz-system/entities/question.entity';
 import { QuestionsRepository } from '@/domain/quizz-system/application/repositories/questions.repository';
 import { PrismaQuestionMapper } from '../../mappers/prisma-question.mapper';
-import { PrismaAnswerMapper } from '../../mappers/prisma-answer.mapper';
 
 @Injectable()
 export class PrismaQuestionsRepository implements QuestionsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async findMany(): Promise<Question[]> {
-    const questions = await this.prisma.question.findMany({include:{
-      answers: true,
-    }});
+    const questions = await this.prisma.question.findMany({
+      include: {
+        answers: true,
+      },
+    });
     return questions.map(PrismaQuestionMapper.toDomain);
   }
 
@@ -39,9 +40,8 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
   async save(question: Question): Promise<void> {
     const data = PrismaQuestionMapper.toPrisma(question);
 
-
     await this.prisma.question.update({
-      data:{
+      data: {
         ...data,
       },
       where: {
@@ -63,9 +63,9 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
       where: {
         id: id,
       },
-      include:{
-        answers: true
-      }
+      include: {
+        answers: true,
+      },
     });
     if (!question) return null;
 

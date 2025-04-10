@@ -1,23 +1,41 @@
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
+import { Lecture } from '@/domain/lecture-system/entities/lecture.entity';
+import { Quizz } from '@/domain/quizz-system/entities/quizz.entity';
 
 export interface SectionItemProps {
   sectionId: UniqueEntityID;
-  title?: string | null;
-  description?: string | null;
+  quizz?: Quizz | null;
+  lecture?: Lecture | null;
+  externalUrl?: string | null;
 
   createdAt: Date;
   updatedAt?: Date | null;
 }
 
 export class SectionItem extends Entity<SectionItemProps> {
-  get title() {
-    return this.props.title;
+  get quizz() {
+    return this.props.quizz;
   }
+  set quizz(quizz: Quizz | undefined | null) {
+    this.props.quizz = quizz;
 
-  set title(title: string | undefined | null) {
-    this.props.title = title;
+    this.touch();
+  }
+  get lecture() {
+    return this.props.lecture;
+  }
+  set lecture(lecture: Lecture | undefined | null) {
+    this.props.lecture = lecture;
+
+    this.touch();
+  }
+  get externalUrl() {
+    return this.props.externalUrl;
+  }
+  set externalUrl(externalUrl: string | undefined | null) {
+    this.props.externalUrl = externalUrl;
 
     this.touch();
   }
@@ -30,15 +48,6 @@ export class SectionItem extends Entity<SectionItemProps> {
   }
   get updatedAt() {
     return this.props.updatedAt;
-  }
-
-  get description() {
-    return this.props.description;
-  }
-  set description(description: string | undefined | null) {
-    this.props.description = description;
-
-    this.touch();
   }
 
   touch() {

@@ -19,6 +19,7 @@ export class PrismaSectionMapper {
       {
         description: raw.description,
         title: raw.title,
+        items: [],
         courseId: new UniqueEntityID(raw.courseId),
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,

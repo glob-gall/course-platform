@@ -16,6 +16,7 @@ export function makeSection(
     {
       description: faker.lorem.text(),
       courseId: new UniqueEntityID(),
+      items: [],
       title,
       ...override,
     },

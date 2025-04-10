@@ -37,6 +37,8 @@ describe('Authenticate User Use Case', () => {
           sub: user.id.toString(),
           user: {
             role: user.role,
+            email: user.email,
+            name: user.name,
           },
         }),
       );
