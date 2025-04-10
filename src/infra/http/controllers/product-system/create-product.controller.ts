@@ -11,7 +11,7 @@ const createProductBodySchema = z.object({
   title: z.string().min(8),
   courses: z.array(z.string()),
   priceInCents: z.coerce.number().int(),
-  maxDatePromoPrice: z.coerce.date(),
+  maxDatePromoPrice: z.coerce.date().optional(),
   promoPriceInCents: z.coerce.number().int(),
 });
 type CreateProductBodySchema = z.infer<typeof createProductBodySchema>;
@@ -41,7 +41,7 @@ export class createProductController {
       priceInCents,
       title,
       description,
-      maxDatePromoPrice: new Date(maxDatePromoPrice),
+      maxDatePromoPrice: maxDatePromoPrice ? new Date(maxDatePromoPrice) : null,
       promoPriceInCents,
     });
 

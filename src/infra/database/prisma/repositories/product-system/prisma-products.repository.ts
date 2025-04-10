@@ -13,6 +13,12 @@ export class PrismaProductsRepository implements ProductsRepository {
     await this.prisma.product.create({
       data: PrismaProductMapper.toPrisma(product),
     });
+    await this.prisma.courseProduct.createMany({
+      data: product.courses.map((c) => ({
+        courseId: c.id.toString(),
+        productId: product.id.toString(),
+      })),
+    });
   }
 
   async save(product: Product): Promise<void> {
