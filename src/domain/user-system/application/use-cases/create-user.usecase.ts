@@ -36,6 +36,8 @@ export class CreateUserUsecase {
       name,
       email,
       password: hashedPassword,
+      purchases: [],
+      userCourse: [],
       role: role ?? UserRole.Student,
     });
 

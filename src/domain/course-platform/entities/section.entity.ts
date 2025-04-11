@@ -2,9 +2,10 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 import { SectionItem } from './section-item.entity';
+import { Course } from './course.entity';
 
 export interface SectionProps {
-  courseId: UniqueEntityID;
+  course?: Course;
   title: string;
   description: string;
 
@@ -24,8 +25,8 @@ export class Section extends Entity<SectionProps> {
     this.touch();
   }
 
-  get courseId() {
-    return this.props.courseId;
+  get course() {
+    return this.props.course;
   }
   get items() {
     return this.props.items;

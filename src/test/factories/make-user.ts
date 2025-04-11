@@ -12,6 +12,8 @@ export function makeUser(
     {
       name: faker.person.fullName(),
       password: faker.internet.password(),
+      purchases: [],
+      userCourse: [],
       role: UserRole.Student,
       email: faker.internet.email(),
       ...override,

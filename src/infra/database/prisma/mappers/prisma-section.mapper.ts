@@ -1,14 +1,16 @@
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Section } from '@/domain/course-platform/entities/section.entity';
 import { Section as PrismaSection } from '@prisma/client';
+import { AttributeNotNullable } from '../errors/attribute-not-nullable.error';
 
 export class PrismaSectionMapper {
   static toPrisma(section: Section): PrismaSection {
+    if (!section.course) throw new AttributeNotNullable('course');
     return {
       description: section.description,
       title: section.title,
       id: section.id.toString(),
-      courseId: section.courseId.toString(),
+      courseId: section.course.id.toString(),
       createdAt: section.createdAt,
       updatedAt: section.updatedAt ?? null,
     };
@@ -20,7 +22,6 @@ export class PrismaSectionMapper {
         description: raw.description,
         title: raw.title,
         items: [],
-        courseId: new UniqueEntityID(raw.courseId),
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },

@@ -3,6 +3,7 @@ import { SectionItem } from '@/domain/course-platform/entities/section-item.enti
 import { Prisma, SectionItem as PrismaSectionItem } from '@prisma/client';
 import { PrismaLectureMapper } from './prisma-lecture.mapper';
 import { PrismaQuizzMapper } from './prisma-quizz.mapper';
+import { AttributeNotNullable } from '../errors/attribute-not-nullable.error';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sectionItemWithRelations =
@@ -19,9 +20,11 @@ type SectionItemWithRelations = Prisma.SectionItemGetPayload<
 
 export class PrismaSectionItemMapper {
   static toPrisma(item: SectionItem): PrismaSectionItem {
+    if (!item.section) throw new AttributeNotNullable('course');
+
     return {
       id: item.id.toString(),
-      sectionId: item.sectionId.toString(),
+      sectionId: item.section?.id.toString(),
       lectureId: item.lecture?.id.toString() ?? null,
       quizzId: item.quizz?.id.toString() ?? null,
       externalUrl: item.externalUrl ?? null,
@@ -33,7 +36,6 @@ export class PrismaSectionItemMapper {
   static toDomain(raw: SectionItemWithRelations): SectionItem {
     const section = SectionItem.create(
       {
-        sectionId: new UniqueEntityID(raw.sectionId),
         externalUrl: raw.externalUrl,
         lecture: raw.lecture ? PrismaLectureMapper.toDomain(raw.lecture) : null,
         quizz: raw.quizz ? PrismaQuizzMapper.toDomain(raw.quizz) : null,

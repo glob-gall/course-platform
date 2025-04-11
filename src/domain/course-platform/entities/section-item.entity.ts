@@ -3,9 +3,10 @@ import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 import { Lecture } from '@/domain/lecture-system/entities/lecture.entity';
 import { Quizz } from '@/domain/quizz-system/entities/quizz.entity';
+import { Section } from './section.entity';
 
 export interface SectionItemProps {
-  sectionId: UniqueEntityID;
+  section?: Section | null;
   quizz?: Quizz | null;
   lecture?: Lecture | null;
   externalUrl?: string | null;
@@ -15,22 +16,26 @@ export interface SectionItemProps {
 }
 
 export class SectionItem extends Entity<SectionItemProps> {
+  get section() {
+    return this.props.section;
+  }
+
   get quizz() {
     return this.props.quizz;
   }
   set quizz(quizz: Quizz | undefined | null) {
     this.props.quizz = quizz;
-
     this.touch();
   }
+
   get lecture() {
     return this.props.lecture;
   }
   set lecture(lecture: Lecture | undefined | null) {
     this.props.lecture = lecture;
-
     this.touch();
   }
+
   get externalUrl() {
     return this.props.externalUrl;
   }
@@ -40,9 +45,6 @@ export class SectionItem extends Entity<SectionItemProps> {
     this.touch();
   }
 
-  get sectionId() {
-    return this.props.sectionId;
-  }
   get createdAt() {
     return this.props.createdAt;
   }

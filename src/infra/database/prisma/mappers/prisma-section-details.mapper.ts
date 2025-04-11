@@ -26,7 +26,6 @@ export class PrismaSectionDetailsMapper {
         description: raw.description,
         title: raw.title,
         items: raw.sectionItems.map(PrismaSectionItemMapper.toDomain),
-        courseId: new UniqueEntityID(raw.courseId),
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
       },

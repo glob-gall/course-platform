@@ -2,12 +2,18 @@ import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 import { UserRole } from './enums/roles.enum';
+import { UserCourse } from '@/domain/progress-system/entities/user-course.entity';
+import { Purchase } from '@/domain/product-system/entities/purchase.entity';
 
 export interface UserProps {
   name: string;
   email: string;
   password: string;
   role: UserRole;
+
+  userCourse: UserCourse[];
+  purchases: Purchase[];
+
   createdAt: Date;
   updatedAt?: Date | null;
 }
@@ -19,6 +25,14 @@ export class User extends Entity<UserProps> {
 
   get role() {
     return this.props.role;
+  }
+
+  get purchases() {
+    return this.props.purchases;
+  }
+
+  get userCourse() {
+    return this.props.userCourse;
   }
 
   get password() {

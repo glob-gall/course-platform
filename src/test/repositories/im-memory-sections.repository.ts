@@ -25,7 +25,7 @@ export class InMemorySectionsRepository implements SectionsRepository {
 
   async findSectiosByCourseId(courseId: string): Promise<Section[]> {
     const sections = this.items.filter(
-      (item) => item.courseId.toString() === courseId,
+      (item) => item.course?.id.toString() === courseId,
     );
     return sections;
   }

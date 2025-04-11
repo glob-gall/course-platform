@@ -15,7 +15,6 @@ export function makeSection(
   const section = Section.create(
     {
       description: faker.lorem.text(),
-      courseId: new UniqueEntityID(),
       items: [],
       title,
       ...override,
