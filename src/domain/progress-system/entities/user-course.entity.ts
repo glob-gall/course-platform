@@ -3,13 +3,13 @@ import { UniqueEntityID } from '@/core/entities/value-objects/unique-entity-id';
 import { Optional } from '@/core/types/optional';
 import { User } from '@/domain/user-system/entities/user.entity';
 import { Course } from '@/domain/course-platform/entities/course.entity';
-import { SectionProgressProps } from './section-progress.entity';
+import { SectionProgress } from './section-progress.entity';
 
 export interface UserCourseProps {
   user: User;
   course: Course;
 
-  progress: SectionProgressProps[];
+  progress: SectionProgress[];
 
   createdAt: Date;
   updatedAt?: Date | null;

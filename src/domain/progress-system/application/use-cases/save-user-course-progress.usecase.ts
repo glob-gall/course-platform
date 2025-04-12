@@ -4,17 +4,17 @@ import { UserCoursesRepository } from '../repositories/user-courses.repository';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
 import { SectionItemProgresssRepository } from '../repositories/section-item-progress.repository';
 
-export interface FetchUserCoursesUsecaseRequest {
+export interface SaveUserCourseProgressUsecaseRequest {
   userId: string;
   courseId: string;
   sectionItemId: string;
   concluded: boolean;
 }
 
-type FetchUserCoursesResponse = Either<ResourceNotFoundError, null>;
+type SaveUserCourseProgressResponse = Either<ResourceNotFoundError, null>;
 
 @Injectable()
-export class FetchUserCoursesUsecase {
+export class SaveUserCourseProgressUsecase {
   constructor(
     private userCoursesRepository: UserCoursesRepository,
     private sectionItemsRepository: SectionItemProgresssRepository,
@@ -25,7 +25,7 @@ export class FetchUserCoursesUsecase {
     courseId,
     concluded,
     sectionItemId,
-  }: FetchUserCoursesUsecaseRequest): Promise<FetchUserCoursesResponse> {
+  }: SaveUserCourseProgressUsecaseRequest): Promise<SaveUserCourseProgressResponse> {
     const userCourse = await this.userCoursesRepository.findByUserAndCourse({
       userId,
       courseId,
