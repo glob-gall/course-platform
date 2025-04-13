@@ -5,7 +5,10 @@ import { createUserController } from './controllers/user/create-user..controller
 import { CryptographyModule } from '../cryptography/cryptography.module';
 import { DatabaseModule } from '../database/database.module';
 import { CreateUserUsecase } from '@/domain/user-system/application/use-cases/create-user.usecase';
-import { AuthenticateUserUsecase } from '@/domain/user-system/application/use-cases/authenticate-user.usecase';
+import {
+  AuthenticateUserUsecase,
+  IAuthenticateUserUsecase,
+} from '@/domain/user-system/application/use-cases/authenticate-user.usecase';
 import { SignInController } from '../http/controllers/auth/sign-in.controller';
 import { AuthModule } from '../auth/auth.module';
 import { fetchCourseByIdController } from './controllers/course-platform/fetch-course-by-id.controller';
@@ -57,7 +60,7 @@ import { GetProductDetailsUsecase } from '@/domain/product-system/application/us
   imports: [DatabaseModule, CryptographyModule, AuthModule, PaymentModule],
   providers: [
     CreateUserUsecase,
-    AuthenticateUserUsecase,
+    { useClass: AuthenticateUserUsecase, provide: IAuthenticateUserUsecase },
     FetchCourseByIdUsecase,
     FetchManyCoursesUsecase,
     CreateCourseUsecase,

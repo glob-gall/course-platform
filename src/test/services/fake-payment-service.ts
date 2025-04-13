@@ -11,6 +11,7 @@ import {
   FindPaymentProfileResponse,
   PaymentService,
 } from '@/domain/product-system/payment-service/payment.service';
+import { Injectable } from '@nestjs/common';
 
 type PaymentProfile = {
   id: UniqueEntityID;
@@ -31,6 +32,7 @@ type FakeSubscription = {
   value: number;
 };
 
+@Injectable()
 export class FakePaymentService implements PaymentService {
   public profiles: PaymentProfile[] = [];
   public charges: FakeCharge[] = [];

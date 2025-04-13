@@ -6,21 +6,26 @@ import { UsersRepository } from '../repositories/users.repository';
 import { HashComparer } from '../cryptography/hash-comparer';
 import { Encrypter } from '../cryptography/encrypter';
 
-interface AuthenticateUserUsecaseRequest {
+export interface AuthenticateUserUsecaseRequest {
   email: string;
   password: string;
 }
 
-type AuthenticateUserUsecaseResponse = Either<
+export type AuthenticateUserUsecaseResponse = Either<
   WrongCredentialsError,
   {
     accessToken: string;
     userId: string;
   }
 >;
+export abstract class IAuthenticateUserUsecase {
+  abstract exec(
+    params: AuthenticateUserUsecaseRequest,
+  ): Promise<AuthenticateUserUsecaseResponse>;
+}
 
 @Injectable()
-export class AuthenticateUserUsecase {
+export class AuthenticateUserUsecase implements IAuthenticateUserUsecase {
   constructor(
     private userRepository: UsersRepository,
     private hashComparer: HashComparer,
