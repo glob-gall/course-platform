@@ -11,10 +11,23 @@ export interface SaveUserCourseProgressUsecaseRequest {
   concluded: boolean;
 }
 
-type SaveUserCourseProgressResponse = Either<ResourceNotFoundError, null>;
+export type SaveUserCourseProgressResponse = Either<
+  ResourceNotFoundError,
+  null
+>;
 
+export abstract class ISaveUserCourseProgressUsecase {
+  abstract exec({
+    userId,
+    courseId,
+    concluded,
+    sectionItemId,
+  }: SaveUserCourseProgressUsecaseRequest): Promise<SaveUserCourseProgressResponse>;
+}
 @Injectable()
-export class SaveUserCourseProgressUsecase {
+export class SaveUserCourseProgressUsecase
+  implements ISaveUserCourseProgressUsecase
+{
   constructor(
     private userCoursesRepository: UserCoursesRepository,
     private sectionItemsRepository: SectionItemProgresssRepository,

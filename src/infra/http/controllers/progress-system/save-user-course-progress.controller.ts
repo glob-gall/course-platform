@@ -1,16 +1,15 @@
-import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Param } from '@nestjs/common';
 import { HttpError } from '../error/http.error';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../../pipes/zod-validation.pipe';
 import { Roles } from '@/infra/decorators/roles.decorator';
 import { UserRole } from '@/domain/user-system/entities/enums/roles.enum';
-import { SaveUserCourseProgressUsecase } from '@/domain/progress-system/application/use-cases/save-user-course-progress.usecase';
+import { ISaveUserCourseProgressUsecase } from '@/domain/progress-system/application/use-cases/save-user-course-progress.usecase';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { CurrentUser } from '@/infra/auth/current-user.decorator';
+import { TokenPayload } from '@/infra/auth/guards/role.guard';
 
 const saveUserCourseProgressBodySchema = z.object({
-  courseId: z.string(),
-  sectionItemId: z.string(),
-  userId: z.string(),
   concluded: z.boolean(),
 });
 type SaveUserCourseProgressBodySchema = z.infer<
@@ -20,26 +19,24 @@ const saveUserCourseProgressValidationPipe = new ZodValidationPipe(
   saveUserCourseProgressBodySchema,
 );
 
-@Controller('/question')
+@Controller('/course/:courseId/:sectionItemId')
 export class saveUserCourseProgressController {
-  constructor(private saveUserCourseProgress: SaveUserCourseProgressUsecase) {}
+  constructor(private saveUserCourseProgress: ISaveUserCourseProgressUsecase) {}
 
   @Post()
   @Roles(UserRole.CourseOwner, UserRole.Admin, UserRole.Student)
   async post(
+    @Param('courseId') courseId: string,
+    @Param('sectionItemId') sectionItemId: string,
+    @CurrentUser() user: TokenPayload,
     @Body(saveUserCourseProgressValidationPipe)
-    {
-      concluded,
-      courseId,
-      sectionItemId,
-      userId,
-    }: SaveUserCourseProgressBodySchema,
+    { concluded }: SaveUserCourseProgressBodySchema,
   ) {
     const result = await this.saveUserCourseProgress.exec({
       concluded,
       courseId,
       sectionItemId,
-      userId,
+      userId: user.sub,
     });
 
     if (result.isLeft()) {
