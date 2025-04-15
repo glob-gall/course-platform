@@ -9,6 +9,8 @@ import { UsersRepository } from '@/domain/user-system/application/repositories/u
 import { sumProductPrices } from '../utils/sum-product-prices';
 import { PaymentService } from '../../payment-service/payment.service';
 import { Injectable } from '@nestjs/common';
+import { PaymentSystemInternalError } from '../../payment-service/error/payment-system-internal.error';
+import { NoPaymentProfileError } from '../../payment-service/error/no-payment-profile.error';
 
 interface CreatePurchaseRequest {
   products: string[];
@@ -17,7 +19,7 @@ interface CreatePurchaseRequest {
 }
 
 type CreatePurchaseResponse = Either<
-  ResourceNotFoundError,
+  ResourceNotFoundError | PaymentSystemInternalError | NoPaymentProfileError,
   { purchase: Purchase }
 >;
 
@@ -46,21 +48,35 @@ export class CreatePurchaseUsecase {
 
     const totalPriceInCents = sumProductPrices(findedProducts, today);
 
+    const paymentSystemResponse = await this.paymentService.createCharge({
+      userId,
+      paymentType: type,
+      value: totalPriceInCents / 100,
+    });
+    if (paymentSystemResponse.isLeft()) {
+      const error = paymentSystemResponse.value;
+      switch (error.constructor) {
+        case NoPaymentProfileError:
+          return left(new NoPaymentProfileError());
+
+        default:
+          return left(new PaymentSystemInternalError());
+      }
+    }
+
+    const { paymentSystemId, chargeUrl } = paymentSystemResponse.value;
+
     const purchase = Purchase.create({
       paymentStatus: 'PENDING',
-      products: products.map((productId) => new UniqueEntityID(productId)),
+      products: findedProducts,
+      chargeUrl,
+      externalId: paymentSystemId,
       totalPriceInCents,
       type,
       userId: new UniqueEntityID(userId),
     });
 
     await this.purchasesRepository.create(purchase);
-
-    await this.paymentService.createCharge({
-      userId,
-      paymentType: type,
-      value: totalPriceInCents / 100,
-    });
 
     return right({ purchase });
   }

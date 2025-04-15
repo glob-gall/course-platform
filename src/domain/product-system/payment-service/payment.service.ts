@@ -3,6 +3,7 @@ import { PaymentType } from './enum/payment-type';
 import { PaymentCycle } from './enum/payment_cycle';
 import { PaymentProfileAlreadyExistsError } from './error/payment-profile-already-exists.error';
 import { ResourceNotFoundError } from '@/core/errors/resource-not-found.error';
+import { NoPaymentProfileError } from './error/no-payment-profile.error';
 
 export interface Profile {
   cpf: string;
@@ -34,7 +35,15 @@ export type CreatePaymentProfileResponse = Either<
   { profileToken: string }
 >;
 
-export type CreateChargeResponse = Either<ResourceNotFoundError, null>;
+type ChargeInfo = {
+  paymentSystemId: string;
+  chargeUrl: string;
+};
+
+export type CreateChargeResponse = Either<
+  ResourceNotFoundError | NoPaymentProfileError,
+  ChargeInfo
+>;
 export type CreateSubscriptionResponse = Either<ResourceNotFoundError, null>;
 
 export abstract class PaymentService {

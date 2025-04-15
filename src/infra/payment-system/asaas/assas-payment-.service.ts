@@ -16,6 +16,7 @@ import { AssasHttpService } from './assas-http.service';
 import { PaymentProfileAlreadyExistsError } from '@/domain/product-system/payment-service/error/payment-profile-already-exists.error';
 import { PrismaService } from '@/infra/database/prisma/prisma.service';
 import { Encrypter } from '@/domain/user-system/application/cryptography/encrypter';
+import { NoPaymentProfileError } from '@/domain/product-system/payment-service/error/no-payment-profile.error';
 
 @Injectable()
 export class AssasPaymentService implements PaymentService {
@@ -84,16 +85,19 @@ export class AssasPaymentService implements PaymentService {
       where: { userId },
     });
     if (!paymentProfile) {
-      return left(new ResourceNotFoundError());
+      return left(new NoPaymentProfileError());
     }
 
-    await this.asaasHttpAccess.newCharge({
+    const { invoiceUrl, id } = await this.asaasHttpAccess.newCharge({
       billingType: paymentType,
       customer: paymentProfile.asaasId,
       dueDate: new Date(),
       value,
     });
-    return right(null);
+    return right({
+      paymentSystemId: id,
+      chargeUrl: invoiceUrl,
+    });
   }
 
   async createSubscription({

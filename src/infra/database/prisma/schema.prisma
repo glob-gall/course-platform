@@ -209,6 +209,9 @@ model Purchase {
   paymentStatus     PaymentStatus
   createdAt         DateTime      @default(now()) @map("created_at")
 
+  externalId String
+  chargeUrl  String
+
   user            User              @relation(fields: [userId], references: [id])
   purchaseProduct PurchaseProduct[]
   userId          String

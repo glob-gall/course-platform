@@ -13,7 +13,9 @@ export function makePurchase(
   const purchase = Purchase.create(
     {
       paymentStatus: 'PENDING',
-      products: [new UniqueEntityID()],
+      products: [],
+      chargeUrl: faker.internet.url(),
+      externalId: faker.string.uuid(),
       userId: new UniqueEntityID(),
       type: 'PIX',
       totalPriceInCents: faker.number.int({ min: 10, max: 5000 }),

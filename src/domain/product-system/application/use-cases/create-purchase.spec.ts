@@ -36,9 +36,8 @@ describe('Create Purchase Use Case', () => {
     productsRepository.items.push(product);
 
     const response = await sut.exec({
-      userCpf: '000.000.000-00',
       products: [product.id.toString()],
-      type: 'PIX',
+      type: 'UNDEFINED',
       userId: user.id.toString(),
     });
 

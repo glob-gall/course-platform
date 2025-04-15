@@ -68,7 +68,10 @@ export class FakePaymentService implements PaymentService {
       userId,
       value,
     });
-    return right(null);
+    return right({
+      chargeUrl: 'http://external.com',
+      paymentSystemId: 'pay-id',
+    });
   }
 
   async createSubscription({

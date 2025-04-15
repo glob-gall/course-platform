@@ -55,6 +55,9 @@ import { GetUserPaymentProfileController } from './controllers/user/get-user-pay
 import { CreateMyPaymentProfileController } from './controllers/user/create-my-payment-profile.controller';
 import { getProductDetailsController } from './controllers/product-system/get-product-details.controller';
 import { GetProductDetailsUsecase } from '@/domain/product-system/application/use-cases/get-product-details.usecase';
+import { BuyProductController } from './controllers/product-system/buy-product.controller';
+import { FetchMyPurchasesController } from './controllers/user/fetch-my-purchases.controller';
+import { FetchPurchasesByUserUsecase } from '@/domain/product-system/application/use-cases/fetch-purchases-by-user.usecase';
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, AuthModule, PaymentModule],
@@ -84,6 +87,9 @@ import { GetProductDetailsUsecase } from '@/domain/product-system/application/us
     FetchManyPurchasesUsecase,
     FetchManySubscriptionsUsecase,
     GetProductDetailsUsecase,
+
+    //Me
+    FetchPurchasesByUserUsecase,
   ],
   controllers: [
     createUserController,
@@ -112,6 +118,10 @@ import { GetProductDetailsUsecase } from '@/domain/product-system/application/us
     GetUserPaymentProfileController,
     CreateMyPaymentProfileController,
     getProductDetailsController,
+    BuyProductController,
+
+    //Me
+    FetchMyPurchasesController,
   ],
 })
 export class HttpModule {}

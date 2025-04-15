@@ -3,6 +3,8 @@ import { PrismaPurchaseMapper } from '../../mappers/prisma-purchase.mapper';
 import { Purchase } from '@/domain/product-system/entities/purchase.entity';
 import { PurchasesRepository } from '@/domain/product-system/application/repositories/purchases.repository';
 import { Injectable } from '@nestjs/common';
+import { PrismaPurchaseWithProductMapper } from '../../mappers/prisma-purchase-with-product.mapper';
+import { PrismaPurchaseProductMapper } from '../../mappers/prisma-purchase-product.mapper';
 
 @Injectable()
 export class PrismaPurchasesRepository implements PurchasesRepository {
@@ -11,6 +13,12 @@ export class PrismaPurchasesRepository implements PurchasesRepository {
   async create(purchase: Purchase): Promise<void> {
     await this.prisma.purchase.create({
       data: PrismaPurchaseMapper.toPrisma(purchase),
+    });
+    const prismaPurchaseProducts = purchase.products.map((p) =>
+      PrismaPurchaseProductMapper.toPrisma(p, purchase.id.toString()),
+    );
+    await this.prisma.purchaseProduct.createMany({
+      data: prismaPurchaseProducts,
     });
   }
 
@@ -39,7 +47,14 @@ export class PrismaPurchasesRepository implements PurchasesRepository {
       where: {
         userId,
       },
+      include: {
+        purchaseProduct: {
+          include: {
+            product: true,
+          },
+        },
+      },
     });
-    return purchases.map(PrismaPurchaseMapper.toDomain);
+    return purchases.map(PrismaPurchaseWithProductMapper.toDomain);
   }
 }
