@@ -23,6 +23,6 @@ export class FetchMyPurchasesController {
       });
     }
 
-    return result.value.purchases.map(PurchasePresenter.toHTTP);
+    return { purchases: result.value.purchases.map(PurchasePresenter.toHTTP) };
   }
 }

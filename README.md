@@ -1,3 +1,7 @@
+This is a backend project for a course platform, it has all the features for the content(courses,course modules, lectures, and quizzes) administration and users usage. it has tests in all use cases and some of the controllers too.
+
+ATENTION: this shouldn't be used in production, it is not completed and not completely tested. this software was made for no comercial intentions. This is just a example of my habilities with NestJS, Vitest, TypeScript, Clean Architecture and software design.
+
 # Use Cases
 
 ### Courses
@@ -7,7 +11,7 @@
 [x] - Delete a course
 [x] - Find a course by id or and by slug
 [ ] - Change sections order
-[ ] - Fetch course with all details (Sections, Lectures, Quizzes)
+[x] - Fetch course with all details (Sections, Lectures, Quizzes)
 
 ### Sections
 
@@ -24,9 +28,9 @@
 
 ### Quizz
 
-[ ] - Create a quizz
-[ ] - Edit a quizz
-[ ] - Delete a quizz
+[x] - Create a quizz
+[x] - Edit a quizz
+[x] - Delete a quizz
 
 ### Admin
 
@@ -36,7 +40,7 @@
 
 ### User
 
-[ ] - Access free courses
+[x] - Access free courses
 [ ] - Buy products(courses accesses)
 
 #### create JWT RS256 private key
