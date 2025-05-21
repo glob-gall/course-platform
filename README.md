@@ -1,3 +1,4 @@
+![Image](https://github.com/user-attachments/assets/c4995e31-4c22-4baa-90fa-8ee32c21796e)
 This is a backend project for a course platform, it has all the features for the content(courses,course modules, lectures, and quizzes) administration and users usage. it has tests in all use cases and some of the controllers too.
 
 ATENTION: this shouldn't be used in production, it is not completed and not completely tested. this software was made for no comercial intentions. This is just a example of my habilities with NestJS, Vitest, TypeScript, Clean Architecture and software design.
